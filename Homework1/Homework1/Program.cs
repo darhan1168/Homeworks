@@ -77,15 +77,5 @@
             Cost = cost;
         }
     }
-    
-    // public class Checking
-    // {
-    //     public bool isDigit(string value)
-    //     {
-    //         if (int.TryParse(value, out _))
-    //             return true;
-    //         return false;
-    //     }
-    // }
 }
 
