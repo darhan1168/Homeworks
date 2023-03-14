@@ -7,5 +7,18 @@
             
         }
     }
+
+    public class Dish
+    {
+        private string _dish;
+        private int _price;
+        private List<Ingredient> _ingredients;
+    }
+
+    public class Ingredient
+    {
+        private string _name;
+        private int _cost;
+    }
 }
 
