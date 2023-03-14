@@ -48,8 +48,34 @@
     {
         private string _name;
         private int _cost;
-        
-        
+
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (int.TryParse(value, out _))
+                    throw new ArgumentException("It`s num");
+                _name = value;
+            }
+        }
+
+        public int Cost
+        {
+            get => _cost;
+            set
+            {
+                if (value < 1)
+                    throw new ArgumentException("It`s incorrect num");
+                _cost = value;
+            }
+        }
+
+        public Ingredient(string name, int cost)
+        {
+            Name = name;
+            Cost = cost;
+        }
     }
     
     // public class Checking
