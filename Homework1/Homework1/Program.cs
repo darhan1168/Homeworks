@@ -157,7 +157,7 @@
                         int dishNum = 1;
                         do
                         {
-                            Console.WriteLine("Блюдо {0}: ", dishNum);
+                            Console.WriteLine("Dish {0}: ", dishNum);
                             int choice = Int32.Parse(Console.ReadLine() ?? string.Empty);
                             
                             if (choice == 0)
@@ -166,7 +166,7 @@
                             }
                             else if (choice < 1 || choice > managementRestaurant.GetDish().Count)
                             {
-                                Console.WriteLine("Некорректный выбор, попробуйте еще раз.");
+                                Console.WriteLine("Incorrect choice");
                             }
                             else
                             {
