@@ -8,6 +8,20 @@
         }
     }
 
+    public class ManagementRestaurant
+    {
+        private List<Dish> _dish;
+        private List<Ingredient> _ingredients;
+        private List<Employee> _employees;
+        private List<Table> _tables;
+
+        public ManagementRestaurant()
+        {
+            _dish = new List<Dish>();
+            _ingredients = new List<Ingredient>();
+            _employees = new List<Employee>();
+            _tables = new List<Table>();
+        }
     public class Dish
     {
         private string _name;
