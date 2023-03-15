@@ -253,6 +253,7 @@
             }
         }
 
+        private Customer(string nameCustomer, long numberPhone)
         {
             NameCustomer = nameCustomer;
             NumberPhone = numberPhone;
