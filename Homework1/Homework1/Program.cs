@@ -22,6 +22,28 @@
             _employees = new List<Employee>();
             _tables = new List<Table>();
         }
+        
+        public void AddDish(Dish dish)
+        {
+            _dish.Add(dish);
+        }
+        
+        public void AddIngredient(Ingredient ingredient)
+        {
+            _ingredients.Add(ingredient);
+        }
+        
+        public void AddEmployee(Employee employee)
+        {
+            _employees.Add(employee);
+        }
+        
+        public void AddTable(Table table)
+        {
+            _tables.Add(table);
+        }
+    }
+
     public class Dish
     {
         private string _name;
