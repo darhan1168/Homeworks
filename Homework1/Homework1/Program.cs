@@ -122,7 +122,10 @@
                                 }
                                 break;
                             case "4":
-                                Console.WriteLine(managementRestaurant.GetTables());
+                                foreach (Table table in managementRestaurant.GetTables())
+                                {
+                                    Console.WriteLine($"- Table: {table.NumberTable}, Seats: {table.NumberSeats}");
+                                }
                                 break;
                             default:
                                 throw new AggregateException("Incorrect answer from user");
