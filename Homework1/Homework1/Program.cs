@@ -34,6 +34,7 @@
                                 throw new NullReferenceException(dishName);
                             }
 
+                            Console.WriteLine($"{dishName} costs {dishCost}");
                             Console.WriteLine("Dish successfully added");
                             break;
                         case "2":
@@ -53,6 +54,7 @@
                                 throw new NullReferenceException(ingredientName);
                             }
 
+                            Console.WriteLine($"{ingredientName} costs {ingredientPrice}");
                             Console.WriteLine("Ingredient successfully added");
                             break;
                         case "3":
