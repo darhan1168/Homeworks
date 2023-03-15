@@ -62,6 +62,12 @@
         {
             return _tables;
         }
+
+        public void CreateOrder(List<Dish> nameDish)
+        {
+            var order = new Order(nameDish);
+            Console.WriteLine(order.TotalCost);
+        }
     }
 
     public class Dish
