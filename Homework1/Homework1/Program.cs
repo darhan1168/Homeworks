@@ -42,6 +42,26 @@
         {
             _tables.Add(table);
         }
+
+        public List<Dish> GetDish()
+        {
+            return _dish;
+        }
+
+        public List<Ingredient> GetIngredients()
+        {
+            return _ingredients;
+        }
+
+        public List<Employee> GetEmployee()
+        {
+            return _employees;
+        }
+
+        public List<Table> GetTables()
+        {
+            return _tables;
+        }
     }
 
     public class Dish
