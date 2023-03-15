@@ -5,123 +5,132 @@
         public static void Main(string[] args)
         {
             ManagementRestaurant managementRestaurant = new ManagementRestaurant();
-            
-            Console.WriteLine("Choose what you want (1 - add, 2 - watch, 3 - create order)");
-            string? answerUserMethods = Console.ReadLine();
-            
-            switch (answerUserMethods)
+
+            while (true)
             {
-                case "1":
-                    Console.WriteLine("Choose what you want (1 - add dish, 2 - add ingredients, 3 - add employees, 4 - add table)");
-                    string? answerUserAdd = Console.ReadLine();
+                Console.WriteLine("Choose what you want (1 - add, 2 - watch, 3 - create order, 4 - stop app)");
+                string? answerUserMethods = Console.ReadLine();
+            
+                switch (answerUserMethods)
+                {
+                    case "1":
+                        Console.WriteLine("Choose what you want (1 - add dish, 2 - add ingredients, 3 - add employees, 4 - add table)");
+                        string? answerUserAdd = Console.ReadLine();
 
-                    switch (answerUserAdd)
-                    {
-                        case "1":
-                            Console.WriteLine("Enter name of dish");
-                            string? dishName = Console.ReadLine();
-                            
-                            Console.WriteLine("Enter cost of dish");
-                            int dishCost = Int32.Parse(Console.ReadLine() ?? string.Empty);
+                        switch (answerUserAdd)
+                        {
+                            case "1":
+                                Console.WriteLine("Enter name of dish");
+                                string? dishName = Console.ReadLine();
+                                
+                                Console.WriteLine("Enter cost of dish");
+                                int dishCost = Int32.Parse(Console.ReadLine() ?? string.Empty);
 
-                            if (dishName != null)
-                            {
-                                Dish newDish = new Dish(dishName, dishCost);
-                                managementRestaurant.AddDish(newDish);
-                            }
-                            else
-                            {
-                                throw new NullReferenceException(dishName);
-                            }
+                                if (dishName != null)
+                                {
+                                    Dish newDish = new Dish(dishName, dishCost);
+                                    managementRestaurant.AddDish(newDish);
+                                }
+                                else
+                                {
+                                    throw new NullReferenceException(dishName);
+                                }
 
-                            Console.WriteLine($"{dishName} costs {dishCost}");
-                            Console.WriteLine("Dish successfully added");
-                            break;
-                        case "2":
-                            Console.WriteLine("Enter name of ingredient");
-                            string? ingredientName = Console.ReadLine();
-                            
-                            Console.WriteLine("Enter cost of ingredient");
-                            int ingredientPrice = Int32.Parse(Console.ReadLine() ?? string.Empty);
+                                Console.WriteLine($"{dishName} costs {dishCost}");
+                                Console.WriteLine("Dish successfully added");
+                                break;
+                            case "2":
+                                Console.WriteLine("Enter name of ingredient");
+                                string? ingredientName = Console.ReadLine();
+                                
+                                Console.WriteLine("Enter cost of ingredient");
+                                int ingredientPrice = Int32.Parse(Console.ReadLine() ?? string.Empty);
 
-                            if (ingredientName != null)
-                            {
-                                Ingredient newIngredient = new Ingredient(ingredientName, ingredientPrice);
-                                managementRestaurant.AddIngredient(newIngredient);
-                            }
-                            else
-                            {
-                                throw new NullReferenceException(ingredientName);
-                            }
+                                if (ingredientName != null)
+                                {
+                                    Ingredient newIngredient = new Ingredient(ingredientName, ingredientPrice);
+                                    managementRestaurant.AddIngredient(newIngredient);
+                                }
+                                else
+                                {
+                                    throw new NullReferenceException(ingredientName);
+                                }
 
-                            Console.WriteLine($"{ingredientName} costs {ingredientPrice}");
-                            Console.WriteLine("Ingredient successfully added");
-                            break;
-                        case "3":
-                            Console.WriteLine("Enter name of employee");
-                            string? employeeName = Console.ReadLine();
-                            
-                            Console.WriteLine("Enter post of employee");
-                            string? employeePost = Console.ReadLine();
+                                Console.WriteLine($"{ingredientName} costs {ingredientPrice}");
+                                Console.WriteLine("Ingredient successfully added");
+                                break;
+                            case "3":
+                                Console.WriteLine("Enter name of employee");
+                                string? employeeName = Console.ReadLine();
+                                
+                                Console.WriteLine("Enter post of employee");
+                                string? employeePost = Console.ReadLine();
 
-                            if (employeeName != null && employeePost != null)
-                            {
-                                Employee employee = new Employee(employeeName, employeePost);
-                                managementRestaurant.AddEmployee(employee);
-                            }
-                            else
-                            {
-                                throw new NullReferenceException(employeeName);
-                            }
+                                if (employeeName != null && employeePost != null)
+                                {
+                                    Employee employee = new Employee(employeeName, employeePost);
+                                    managementRestaurant.AddEmployee(employee);
+                                }
+                                else
+                                {
+                                    throw new NullReferenceException(employeeName);
+                                }
 
-                            Console.WriteLine($"Name: {employeeName}  Post: {employeePost}");
-                            Console.WriteLine("Employee successfully added");
-                            break;
-                        case "4":
-                            Console.WriteLine("Enter numbers of table (max value - 25)");
-                            int numbersTable = Int32.Parse(Console.ReadLine() ?? string.Empty);
-                            
-                            Console.WriteLine("Enter numbers of seats (max value - 10)");
-                            int numbersSeats = Int32.Parse(Console.ReadLine() ?? string.Empty);
+                                Console.WriteLine($"Name: {employeeName}  Post: {employeePost}");
+                                Console.WriteLine("Employee successfully added");
+                                break;
+                            case "4":
+                                Console.WriteLine("Enter numbers of table (max value - 25)");
+                                int numbersTable = Int32.Parse(Console.ReadLine() ?? string.Empty);
+                                
+                                Console.WriteLine("Enter numbers of seats (max value - 10)");
+                                int numbersSeats = Int32.Parse(Console.ReadLine() ?? string.Empty);
 
-                            Table newTable = new Table(numbersTable, numbersSeats);
-                            managementRestaurant.AddTable(newTable);
-                            
-                            Console.WriteLine($"Number of table: {numbersTable}  seats: {numbersSeats}");
-                            Console.WriteLine("Table successfully added");
-                            break;
-                        default:
-                            throw new AggregateException("Incorrect answer from user");
-                    }
-                    
-                    break;
-                case "2":
-                    Console.WriteLine("Choose what you want (1 - add dish, 2 - add ingredients, 3 - add employees, 4 - add table)");
-                    string? answerUserWatch = Console.ReadLine();
-                    
-                    switch (answerUserWatch)
-                    {
-                        case "1":
-                            Console.WriteLine(managementRestaurant.GetDish());
-                            break;
-                        case "2":
-                            Console.WriteLine(managementRestaurant.GetIngredients());
-                            break;
-                        case "3":
-                            Console.WriteLine(managementRestaurant.GetEmployee());
-                            break;
-                        case "4":
-                            Console.WriteLine(managementRestaurant.GetTables());
-                            break;
-                        default:
-                            throw new AggregateException("Incorrect answer from user");
-                    }
-                    
-                    break;
-                case "3":
-                    break;
-                default:
-                    throw new AggregateException("Incorrect answer from user");
+                                Table newTable = new Table(numbersTable, numbersSeats);
+                                managementRestaurant.AddTable(newTable);
+                                
+                                Console.WriteLine($"Number of table: {numbersTable}  seats: {numbersSeats}");
+                                Console.WriteLine("Table successfully added");
+                                break;
+                            default:
+                                throw new AggregateException("Incorrect answer from user");
+                        }
+                        
+                        break;
+                    case "2":
+                        Console.WriteLine("Choose what you want (1 - watch dish, 2 - watch ingredients, 3 - watch employees, 4 - watch table)");
+                        string? answerUserWatch = Console.ReadLine();
+                        
+                        switch (answerUserWatch)
+                        {
+                            case "1":
+                                foreach (Dish dish in managementRestaurant.GetDish())
+                                {
+                                    Console.WriteLine($"- {dish.Name}, {dish.Price}");
+                                }
+                                break;
+                            case "2":
+                                Console.WriteLine(managementRestaurant.GetIngredients());
+                                break;
+                            case "3":
+                                Console.WriteLine(managementRestaurant.GetEmployee());
+                                break;
+                            case "4":
+                                Console.WriteLine(managementRestaurant.GetTables());
+                                break;
+                            default:
+                                throw new AggregateException("Incorrect answer from user");
+                        }
+                        
+                        break;
+                    case "3":
+                        break;
+                    case "4":
+                        return;
+                        break;
+                    default:
+                        throw new AggregateException("Incorrect answer from user");
+                }
             }
         }
     }
