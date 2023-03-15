@@ -58,6 +58,24 @@
                             Console.WriteLine("Ingredient successfully added");
                             break;
                         case "3":
+                            Console.WriteLine("Enter name of employee");
+                            string? employeeName = Console.ReadLine();
+                            
+                            Console.WriteLine("Enter post of employee");
+                            string? employeePost = Console.ReadLine();
+
+                            if (employeeName != null && employeePost != null)
+                            {
+                                Employee employee = new Employee(employeeName, employeePost);
+                                managementRestaurant.AddEmployee(employee);
+                            }
+                            else
+                            {
+                                throw new NullReferenceException(employeeName);
+                            }
+
+                            Console.WriteLine($"Name: {employeeName}  Post: {employeePost}");
+                            Console.WriteLine("Employee successfully added");
                             break;
                         case "4":
                             break;
