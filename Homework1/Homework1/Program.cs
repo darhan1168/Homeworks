@@ -179,7 +179,6 @@
                         break;
                     case "4":
                         return;
-                        break;
                     default:
                         throw new AggregateException("Incorrect answer from user");
                 }
