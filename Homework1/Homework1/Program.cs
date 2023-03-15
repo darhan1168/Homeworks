@@ -36,11 +36,17 @@
             }
         }
 
+        public List<Ingredient> Ingredients
+        {
+            get => _ingredients;
+            set => _ingredients = value;
+        }
+
         public Dish(string name, int price, List<Ingredient> ingredients)
         {
             Name = name;
             Price = price;
-            _ingredients = ingredients;
+            Ingredients = ingredients;
         }
     }
 
