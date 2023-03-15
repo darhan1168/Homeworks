@@ -163,5 +163,39 @@
             NumberSeats = numberSeats;
         }
     }
+
+    public class Customer
+    {
+        private string _nameCustomer;
+        private long _numberPhone;
+
+        public string NameCustomer
+        {
+            get => _nameCustomer;
+            set
+            {
+                if (int.TryParse(value, out _))
+                    throw new ArgumentException("It`s num");
+                _nameCustomer = value;
+            }
+        }
+
+        public long NumberPhone
+        {
+            get => _numberPhone;
+            set
+            {
+                if (value.ToString().Length < 10)
+                    throw new AggregateException("Incorrect phone number");
+                _numberPhone = value;
+            }
+        }
+
+        public Customer(string nameCustomer, long numberPhone)
+        {
+            NameCustomer = nameCustomer;
+            NumberPhone = numberPhone;
+        }
+    }
 }
 
