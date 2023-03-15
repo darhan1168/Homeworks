@@ -78,6 +78,17 @@
                             Console.WriteLine("Employee successfully added");
                             break;
                         case "4":
+                            Console.WriteLine("Enter numbers of table (max value - 25)");
+                            int numbersTable = Int32.Parse(Console.ReadLine() ?? string.Empty);
+                            
+                            Console.WriteLine("Enter numbers of seats (max value - 10)");
+                            int numbersSeats = Int32.Parse(Console.ReadLine() ?? string.Empty);
+
+                            Table newTable = new Table(numbersTable, numbersSeats);
+                            managementRestaurant.AddTable(newTable);
+                            
+                            Console.WriteLine($"Number of table: {numbersTable}  seats: {numbersSeats}");
+                            Console.WriteLine("Table successfully added");
                             break;
                         default:
                             throw new AggregateException("Incorrect answer from user");
