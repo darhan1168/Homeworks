@@ -18,8 +18,42 @@
                     switch (answerUserAdd)
                     {
                         case "1":
+                            Console.WriteLine("Enter name of dish");
+                            string? dishName = Console.ReadLine();
+                            
+                            Console.WriteLine("Enter cost of dish");
+                            int dishCost = Int32.Parse(Console.ReadLine() ?? string.Empty);
+
+                            if (dishName != null)
+                            {
+                                Dish newDish = new Dish(dishName, dishCost);
+                                managementRestaurant.AddDish(newDish);
+                            }
+                            else
+                            {
+                                throw new NullReferenceException(dishName);
+                            }
+
+                            Console.WriteLine("Dish successfully added");
                             break;
                         case "2":
+                            Console.WriteLine("Enter name of ingredient");
+                            string? ingredientName = Console.ReadLine();
+                            
+                            Console.WriteLine("Enter name of ingredient");
+                            int ingredientPrice = Int32.Parse(Console.ReadLine() ?? string.Empty);
+
+                            if (ingredientName != null)
+                            {
+                                Ingredient newIngredient = new Ingredient(ingredientName, ingredientPrice);
+                                managementRestaurant.AddIngredient(newIngredient);
+                            }
+                            else
+                            {
+                                throw new NullReferenceException(ingredientName);
+                            }
+
+                            Console.WriteLine("Ingredient successfully added");
                             break;
                         case "3":
                             break;
@@ -157,6 +191,12 @@
             set => _ingredients = value;
         }
 
+        public Dish(string name, int price)
+        {
+            Name = name;
+            Price = price;
+        }
+        
         public Dish(string name, int price, List<Ingredient> ingredients)
         {
             Name = name;
