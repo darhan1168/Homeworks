@@ -149,6 +149,33 @@
                         
                         break;
                     case "3":
+                        List<Dish> selectedDishes = new List<Dish>();
+                        if (selectedDishes == null) throw new ArgumentNullException(nameof(selectedDishes));
+
+                        Console.WriteLine("Inter the order number of the dish or 0 if you want stop");
+
+                        int dishNum = 1;
+                        do
+                        {
+                            Console.WriteLine("Блюдо {0}: ", dishNum);
+                            int choice = Int32.Parse(Console.ReadLine() ?? string.Empty);
+                            
+                            if (choice == 0)
+                            {
+                                break;
+                            }
+                            else if (choice < 1 || choice > managementRestaurant.GetDish().Count)
+                            {
+                                Console.WriteLine("Некорректный выбор, попробуйте еще раз.");
+                            }
+                            else
+                            {
+                                selectedDishes.Add(managementRestaurant.GetDish()[choice - 1]);
+                                dishNum++;
+                            }
+                        } while (true);
+                        
+                        managementRestaurant.CreateOrder(selectedDishes);
                         break;
                     case "4":
                         return;
@@ -218,7 +245,7 @@
         public void CreateOrder(List<Dish> nameDish)
         {
             var order = new Order(nameDish);
-            Console.WriteLine(order.TotalCost);
+            Console.WriteLine($"All price: {order.TotalCost}");
         }
     }
 
@@ -312,7 +339,11 @@
         public Order(List<Dish> dishes)
         {
             Dishes = dishes;
-            TotalCost = Dishes.Sum(dish => dish.Price);
+            TotalCost = 0;
+            foreach (Dish dish in dishes)
+            {
+                TotalCost += dish.Price;
+            }
         }
     }
 
