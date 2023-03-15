@@ -332,12 +332,10 @@
 
     public class Order
     {
-        public List<Dish> Dishes { get; set; }
         public int TotalCost { get; set; }
 
         public Order(List<Dish> dishes)
         {
-            Dishes = dishes;
             TotalCost = 0;
             foreach (Dish dish in dishes)
             {
