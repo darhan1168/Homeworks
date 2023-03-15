@@ -4,7 +4,60 @@
     {
         public static void Main(string[] args)
         {
+            ManagementRestaurant managementRestaurant = new ManagementRestaurant();
             
+            Console.WriteLine("Choose what you want (1 - add, 2 - watch, 3 - create order)");
+            string? answerUserMethods = Console.ReadLine();
+            
+            switch (answerUserMethods)
+            {
+                case "1":
+                    Console.WriteLine("Choose what you want (1 - add dish, 2 - add ingredients, 3 - add employees, 4 - add table)");
+                    string? answerUserAdd = Console.ReadLine();
+
+                    switch (answerUserAdd)
+                    {
+                        case "1":
+                            break;
+                        case "2":
+                            break;
+                        case "3":
+                            break;
+                        case "4":
+                            break;
+                        default:
+                            throw new AggregateException("Incorrect answer from user");
+                    }
+                    
+                    break;
+                case "2":
+                    Console.WriteLine("Choose what you want (1 - add dish, 2 - add ingredients, 3 - add employees, 4 - add table)");
+                    string? answerUserWatch = Console.ReadLine();
+                    
+                    switch (answerUserWatch)
+                    {
+                        case "1":
+                            Console.WriteLine(managementRestaurant.GetDish());
+                            break;
+                        case "2":
+                            Console.WriteLine(managementRestaurant.GetIngredients());
+                            break;
+                        case "3":
+                            Console.WriteLine(managementRestaurant.GetEmployee());
+                            break;
+                        case "4":
+                            Console.WriteLine(managementRestaurant.GetTables());
+                            break;
+                        default:
+                            throw new AggregateException("Incorrect answer from user");
+                    }
+                    
+                    break;
+                case "3":
+                    break;
+                default:
+                    throw new AggregateException("Incorrect answer from user");
+            }
         }
     }
 
