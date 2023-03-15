@@ -110,7 +110,10 @@
                                 }
                                 break;
                             case "2":
-                                Console.WriteLine(managementRestaurant.GetIngredients());
+                                foreach (Ingredient ingredient in managementRestaurant.GetIngredients())
+                                {
+                                    Console.WriteLine($"- {ingredient.Name}, {ingredient.Cost}");
+                                }
                                 break;
                             case "3":
                                 Console.WriteLine(managementRestaurant.GetEmployee());
