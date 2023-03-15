@@ -116,7 +116,10 @@
                                 }
                                 break;
                             case "3":
-                                Console.WriteLine(managementRestaurant.GetEmployee());
+                                foreach (Employee employee in managementRestaurant.GetEmployee())
+                                {
+                                    Console.WriteLine($"- {employee.Name}, Post: {employee.Post}");
+                                }
                                 break;
                             case "4":
                                 Console.WriteLine(managementRestaurant.GetTables());
