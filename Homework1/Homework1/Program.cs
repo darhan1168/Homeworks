@@ -104,24 +104,40 @@
                         switch (answerUserWatch)
                         {
                             case "1":
+                                if (managementRestaurant.GetDish().Count == 0)
+                                {
+                                    Console.WriteLine("Dishes not added yet");
+                                }
                                 foreach (Dish dish in managementRestaurant.GetDish())
                                 {
                                     Console.WriteLine($"- {dish.Name}, {dish.Price}");
                                 }
                                 break;
                             case "2":
+                                if (managementRestaurant.GetIngredients().Count == 0)
+                                {
+                                    Console.WriteLine("Ingredients not added yet");
+                                }
                                 foreach (Ingredient ingredient in managementRestaurant.GetIngredients())
                                 {
                                     Console.WriteLine($"- {ingredient.Name}, {ingredient.Cost}");
                                 }
                                 break;
                             case "3":
+                                if (managementRestaurant.GetEmployee().Count == 0)
+                                {
+                                    Console.WriteLine("Employee not added yet");
+                                }
                                 foreach (Employee employee in managementRestaurant.GetEmployee())
                                 {
                                     Console.WriteLine($"- {employee.Name}, Post: {employee.Post}");
                                 }
                                 break;
                             case "4":
+                                if (managementRestaurant.GetTables().Count == 0)
+                                {
+                                    Console.WriteLine("Tables not added yet");
+                                }
                                 foreach (Table table in managementRestaurant.GetTables())
                                 {
                                     Console.WriteLine($"- Table: {table.NumberTable}, Seats: {table.NumberSeats}");
