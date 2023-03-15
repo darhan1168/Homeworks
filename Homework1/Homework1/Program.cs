@@ -129,5 +129,39 @@
             Post = post;
         }
     }
+
+    public class Table
+    {
+        private int _numberTable;
+        private int _numberSeats;
+
+        public int NumberTable
+        {
+            get => _numberTable;
+            set
+            {
+                if (value < 1 || value > 25)
+                    throw new ArgumentException("Incorrect num for number table");
+                _numberTable = value;
+            }
+        }
+
+        public int NumberSeats
+        {
+            get => _numberSeats;
+            set
+            {
+                if (value < 1 || value > 8)
+                    throw new AggregateException("Incorrect num for number seats");
+                _numberSeats = value;
+            }
+        }
+
+        public Table(int numberTable, int numberSeats)
+        {
+            NumberTable = numberTable;
+            NumberSeats = numberSeats;
+        }
+    }
 }
 
