@@ -40,7 +40,7 @@
                             Console.WriteLine("Enter name of ingredient");
                             string? ingredientName = Console.ReadLine();
                             
-                            Console.WriteLine("Enter name of ingredient");
+                            Console.WriteLine("Enter cost of ingredient");
                             int ingredientPrice = Int32.Parse(Console.ReadLine() ?? string.Empty);
 
                             if (ingredientName != null)
