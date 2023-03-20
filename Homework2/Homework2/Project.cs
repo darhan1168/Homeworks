@@ -6,6 +6,7 @@ public class Project
     private string _description;
     private string _deadline;
     private decimal _budget;
+    private List<Staff> _staff;
 
     public string Name
     {
@@ -51,11 +52,12 @@ public class Project
         }
     }
 
-    public Project(string name, string description, string deadline, decimal budget)
+    public Project(string name, string description, string deadline, decimal budget, List<Staff> staff)
     {
         Name = name;
         Description = description;
         Deadline = deadline;
         Budget = budget;
+        _staff = staff;
     }
 }
