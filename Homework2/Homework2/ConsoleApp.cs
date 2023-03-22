@@ -11,15 +11,20 @@ public class ConsoleApp
 
             while (true)
             {
-                consoleRobot.WriteMassage("Choose what you want (1 - Project status review, 2 - Addition of options, 3 - Deletion of options, 4 - Replacement of options, 5 - Watching status of options,  6 - Stop console app)");
+                consoleRobot.WriteMassage("Choose what you want (1 - Project status review, 2 - Addition of options, 3 - Deletion of options, 4 - Replacement of options, 5 - Stop console app)");
                 string? answerUserMethod = consoleRobot.ReadInput();
 
                 switch (answerUserMethod)
                 {
                     case "1":
-                        // managedProject.ShowProject();
-                        // managedTasks.ShowTasks();
-                        // managedStaff.ShowStaff();
+                        consoleRobot.WriteMassage("Projects:");
+                        managedProject.ShowProject();
+                        
+                        consoleRobot.WriteMassage("Tasks:");
+                        managedTasks.ShowTasks();
+                        
+                        consoleRobot.WriteMassage("Staff:");
+                        managedStaff.ShowStaff();
                         break;
                     case "2":
                         consoleRobot.WriteMassage("Choose what you want add (1 - new project, 2 - new task, 3 - new staff)");
@@ -207,8 +212,6 @@ public class ConsoleApp
                         
                         break;
                     case "5":
-                        break;
-                    case "6":
                         return;
                     default:
                         consoleRobot.WriteMassage("- Your answer should be 1 to 6,  try again");
