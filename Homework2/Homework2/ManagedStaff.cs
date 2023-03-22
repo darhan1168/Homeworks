@@ -35,12 +35,12 @@ public class ManagedStaff
     
     public void ReplaceName(string value, int index)
     {
-        _staff[index].Name = value;
+        _staff[index - 1].Name = value;
     }
     
     public void ReplacePost(string value, int index)
     {
-        _staff[index].Post = value;
+        _staff[index - 1].Post = value;
     }
 
     public List<Staff> GetStaff()

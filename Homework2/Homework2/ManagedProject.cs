@@ -35,22 +35,22 @@ public class ManagedProject
     
     public void ReplaceName(string value, int index)
     {
-        _projects[index].Name = value;
+        _projects[index - 1].Name = value;
     }
     
     public void ReplaceDescription(string value, int index)
     {
-        _projects[index].Description = value;
+        _projects[index - 1].Description = value;
     }
     
     public void ReplaceDeadline(string value, int index)
     {
-        _projects[index].Deadline = value;
+        _projects[index - 1].Deadline = value;
     }
     
     public void ReplaceBudget(decimal value, int index)
     {
-        _projects[index].Budget = value;
+        _projects[index - 1].Budget = value;
     }
     
     public List<Project> GetProjects()

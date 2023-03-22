@@ -35,7 +35,7 @@ public class ManagedTasks
 
     public void ReplaceDescription(string value, int index)
     {
-        _tasks[index].Description = value;
+        _tasks[index - 1].Description = value;
     }
     
     public List<Tasks> GetTasks()
