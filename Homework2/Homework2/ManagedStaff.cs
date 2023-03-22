@@ -32,6 +32,16 @@ public class ManagedStaff
             index++;
         }
     }
+    
+    public void ReplaceName(string value, int index)
+    {
+        _staff[index].Name = value;
+    }
+    
+    public void ReplacePost(string value, int index)
+    {
+        _staff[index].Post = value;
+    }
 
     public List<Staff> GetStaff()
     {
