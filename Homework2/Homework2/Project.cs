@@ -53,6 +53,14 @@ public class Project
         }
     }
 
+    public Project(string name, string description, string deadline, decimal budget)
+    {
+        Name = name;
+        Description = description;
+        Deadline = deadline;
+        Budget = budget;
+    }
+    
     public Project(string name, string description, string deadline, decimal budget, List<Staff> staff, List<Tasks> tasks)
     {
         Name = name;
