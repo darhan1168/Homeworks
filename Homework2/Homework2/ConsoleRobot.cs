@@ -7,9 +7,9 @@ public class ConsoleRobot
         Console.WriteLine(massage);
     }
 
-    public string? ReadInput(string prompt)
+    public string? ReadInput()
     {
-        Console.Write(prompt);
+        Console.Write("Answer:");
         return Console.ReadLine();
     }
 }
