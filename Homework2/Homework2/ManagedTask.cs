@@ -19,6 +19,20 @@ public class ManagedTasks
         _tasks.RemoveAt(index);
     }
 
+    public void ShowTasks()
+    {
+        int index = 1;
+        
+        if (_tasks.Count == 0)
+            Console.WriteLine("Tasks not added yet");
+        
+        foreach (var task in _tasks)
+        {
+            Console.WriteLine($"{index} - {task.Description}");
+            index++;
+        }
+    }
+    
     public List<Tasks> GetTasks()
     {
         return _tasks;
