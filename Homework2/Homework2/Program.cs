@@ -22,7 +22,7 @@
                     case "1":
                         break;
                     case "2":
-                        consoleRobot.WriteMassage("Choose what you want (1 - Add new project, 2 - Add new task, 3 - Add new staff)");
+                        consoleRobot.WriteMassage("Choose what you want add (1 - new project, 2 - new task, 3 - new staff)");
                         string? answerUserAdd = consoleRobot.ReadInput();
 
                         switch (answerUserAdd)
