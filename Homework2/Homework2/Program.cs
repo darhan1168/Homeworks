@@ -90,6 +90,43 @@
                         
                         break;
                     case "3":
+                        consoleRobot.WriteMassage("Choose what you want delete (1 - project, 2 - task, 3 - staff)");
+                        string? answerUserDelete = consoleRobot.ReadInput();
+
+                        switch (answerUserDelete)
+                        {
+                            case "1":
+                                consoleRobot.WriteMassage("Enter the project sequence number");
+                                int sequenceNumberProject = int.Parse(consoleRobot.ReadInput() ?? string.Empty);
+            
+                                managedProject.DeleteProject(sequenceNumberProject - 1);
+                                consoleRobot.WriteMassage($"Project {sequenceNumberProject} deleted");
+                                managedProject.ShowProject();
+                                
+                                break;
+                            case "2":
+                                consoleRobot.WriteMassage("Enter the task sequence number");
+                                int sequenceNumberTask = int.Parse(consoleRobot.ReadInput() ?? string.Empty);
+            
+                                managedTasks.DeleteTasks(sequenceNumberTask - 1);
+                                consoleRobot.WriteMassage($"Task {sequenceNumberTask} deleted");
+                                managedTasks.ShowTasks();
+
+                                break;
+                            case "3":
+                                consoleRobot.WriteMassage("Enter the staff sequence number");
+                                int sequenceNumberStaff = int.Parse(consoleRobot.ReadInput() ?? string.Empty);
+                                
+                                managedStaff.DeleteStaff(sequenceNumberStaff - 1);
+                                consoleRobot.WriteMassage($"Staff {sequenceNumberStaff} deleted");
+                                managedStaff.ShowStaff();
+                                
+                                break;
+                            default:
+                                consoleRobot.WriteMassage("- Your answer should be 1 to 3,  try again");
+                                break;
+                        }
+                        
                         break;
                     case "4":
                         break;
