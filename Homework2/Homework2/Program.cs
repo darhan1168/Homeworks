@@ -40,6 +40,7 @@
                                 consoleRobot.WriteMassage("- Your answer should be 1 to 3,  try again");
                                 break;
                         }
+                        
                         break;
                     case "3":
                         break;
