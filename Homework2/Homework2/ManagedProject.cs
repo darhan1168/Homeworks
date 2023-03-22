@@ -33,6 +33,26 @@ public class ManagedProject
         }
     }
     
+    public void ReplaceName(string value, int index)
+    {
+        _projects[index].Name = value;
+    }
+    
+    public void ReplaceDescription(string value, int index)
+    {
+        _projects[index].Description = value;
+    }
+    
+    public void ReplaceDeadline(string value, int index)
+    {
+        _projects[index].Deadline = value;
+    }
+    
+    public void ReplaceBudget(decimal value, int index)
+    {
+        _projects[index].Budget = value;
+    }
+    
     public List<Project> GetProjects()
     {
         return _projects;
