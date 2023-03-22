@@ -10,6 +10,7 @@
             ManagedTasks managedTasks = new ManagedTasks();
             ManagedStaff managedStaff = new ManagedStaff();
             ConsoleRobot consoleRobot = new ConsoleRobot();
+            ConsoleAdding consoleAdding = new ConsoleAdding();
 
             while (true)
             {
@@ -23,6 +24,24 @@
                     case "1":
                         break;
                     case "2":
+                        consoleRobot.WriteMassage("Choose what you want (1 - Add new project, 2 - Add new task, 3 - Add new staff)");
+                        string? answerUserAdd = consoleRobot.ReadInput();
+
+                        switch (answerUserAdd)
+                        {
+                            case "1":
+                                consoleAdding.AddProject();
+                                break;
+                            case "2":
+                                consoleAdding.AddTask();
+                                break;
+                            case "3":
+                                consoleAdding.AddStaff();
+                                break;
+                            default:
+                                consoleRobot.WriteMassage("- Your answer should be 1 to 3,  try again");
+                                break;
+                        }
                         break;
                     case "3":
                         break;
