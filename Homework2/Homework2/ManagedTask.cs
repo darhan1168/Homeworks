@@ -32,6 +32,11 @@ public class ManagedTasks
             index++;
         }
     }
+
+    public void ReplaceDescription(string value, int index)
+    {
+        _tasks[index].Description = value;
+    }
     
     public List<Tasks> GetTasks()
     {
