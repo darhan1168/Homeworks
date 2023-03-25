@@ -15,7 +15,7 @@ public class Project
         set
         {
             if (int.TryParse(value, out _))
-                throw new AggregateException("Name is num");
+                throw new ArgumentException("Name is num");
             _name = value;
         }
     }
@@ -26,7 +26,7 @@ public class Project
         set
         {
             if (int.TryParse(value, out _))
-                throw new AggregateException("Description is num");
+                throw new ArgumentException("Description is num");
             _description = value;
         }
     }
@@ -37,7 +37,7 @@ public class Project
         set
         {
             if (int.TryParse(value, out _))
-                throw new AggregateException("Deadline is num");
+                throw new ArgumentException("Deadline is num");
             _deadline = value;
         }
     }

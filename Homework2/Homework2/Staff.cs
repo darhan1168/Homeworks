@@ -11,7 +11,7 @@ public class Staff
         set
         {
             if (int.TryParse(value, out _))
-                throw new AggregateException("Name is num");
+                throw new ArgumentException("Name is num");
             _name = value;
         }
     }
@@ -22,7 +22,7 @@ public class Staff
         set
         {
             if (int.TryParse(value, out _))
-                throw new AggregateException("Post is num");
+                throw new ArgumentException("Post is num");
             _post = value;
         }
     }

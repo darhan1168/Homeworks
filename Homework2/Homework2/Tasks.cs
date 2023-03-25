@@ -10,7 +10,7 @@ public class Tasks
         set
         {
             if (int.TryParse(value, out _))
-                throw new AggregateException("Description is num");
+                throw new ArgumentException("Description is num");
             _description = value;
         }
     }
