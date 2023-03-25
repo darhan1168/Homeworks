@@ -6,8 +6,8 @@ public class Project
     private string _description;
     private string _deadline;
     private decimal _budget;
-    private List<Staff> _staff;
-    private List<Tasks> _tasks;
+    private List<Staff> _staff = new List<Staff>();
+    private List<Tasks> _tasks = new List<Tasks>();
 
     public string Name
     {
