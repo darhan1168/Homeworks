@@ -10,13 +10,13 @@ public class ConsoleRobot
 
     public string? GetNewValue()
     {
-        WriteMassage("Enter new value");
+        Console.WriteLine("Enter new value");
         return ReadInput();
     }
 
     public int GetSequenceNumber()
     {
-        WriteMassage("Enter sequence number");
+        Console.WriteLine("Enter sequence number");
         return int.Parse(ReadInput() ?? string.Empty);
     }
 }
