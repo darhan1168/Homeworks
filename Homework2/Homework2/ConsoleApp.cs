@@ -4,9 +4,6 @@ public class ConsoleApp
 {
     public void App()
         {
-            ManagedProject managedProject = new ManagedProject();
-            ManagedTasks managedTasks = new ManagedTasks();
-            ManagedStaff managedStaff = new ManagedStaff();
             ConsoleRobot consoleRobot = new ConsoleRobot();
 
             while (true)
@@ -17,14 +14,9 @@ public class ConsoleApp
                 switch (answerUserMethod)
                 {
                     case "1":
-                        Console.WriteLine("Projects:");
-                        managedProject.ShowProject();
+                        ConsoleAppForProjectReview consoleAppForProjectReview = new ConsoleAppForProjectReview();
                         
-                        Console.WriteLine("Tasks:");
-                        managedTasks.ShowTasks();
-                        
-                        Console.WriteLine("Staff:");
-                        managedStaff.ShowStaff();
+                        consoleAppForProjectReview.ConsoleForProjectReview();
                         break;
                     case "2":
                         ConsoleAppForAdding consoleAppForAdding = new ConsoleAppForAdding();
