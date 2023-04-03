@@ -18,7 +18,7 @@ namespace BLL.Services
         public async Task<Trainer> AddTrainer(Trainer trainer)
         {
             await Add(trainer);
-            throw new NotImplementedException();
+            return trainer;
         }
 
         public async Task<List<Trainer>> GetTrainersBySpecialization(string specialization)
