@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BLL.Abstractions.Interfaces;
 using Core.Models;
@@ -23,7 +24,15 @@ namespace BLL.Services
 
         public async Task<List<Trainer>> GetTrainersBySpecialization(string specialization)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var trainers = await GetAll();
+                return trainers.Where(t => t.Specialization.Equals(specialization, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to get trainers by specialization {specialization}. Exception: {ex.Message}");
+            }
         }
 
         public async Task<List<Trainer>> GetAvailableTrainers(DateTime date)
