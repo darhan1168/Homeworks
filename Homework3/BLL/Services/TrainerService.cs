@@ -6,6 +6,7 @@ using BLL.Abstractions.Interfaces;
 using Core.Models;
 using DAL.Abstractions.Interfaces;
 using DAL.Services;
+using Exception = System.Exception;
 
 namespace BLL.Services
 {
@@ -59,10 +60,27 @@ namespace BLL.Services
                 throw new Exception($"Failed to get trainers by date {date}. Exception: {ex.Message}");
             }
         }
-
-        public async Task<bool> CheckTrainerAvailability(Guid trainerId, DateTime date, TimeSpan startTime, TimeSpan endTime)
+        
+        public async Task<bool> CheckTrainerAvailability(Guid trainerId, DateTime date)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var trainer = await GetById(trainerId);
+
+                foreach (var availableDate in trainer.AvailableDates)
+                {
+                    if (availableDate == date)
+                    {
+                        return true;
+                    }
+                }
+                
+                return trainer.AvailableDates.All(c => c.Date != date);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to check trainer availability for trainerId {trainerId} on {date.ToShortDateString()}. Exception: {ex.Message}");
+            }
         }
 
         public async Task AssignTrainerToClass(Guid trainerId, Guid classId)
