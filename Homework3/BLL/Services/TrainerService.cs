@@ -37,7 +37,27 @@ namespace BLL.Services
 
         public async Task<List<Trainer>> GetAvailableTrainers(DateTime date)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var trainers = await GetAll();
+                var unavailableTrainers = new List<Trainer>();
+                
+                foreach (var trainer in trainers)
+                {
+                    var isAvailable = await CheckTrainerAvailability(trainer.Id, date);
+                    
+                    if (!isAvailable)
+                    {
+                        unavailableTrainers.Add(trainer);
+                    }
+                }
+                
+                return trainers.Except(unavailableTrainers).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to get trainers by date {date}. Exception: {ex.Message}");
+            }
         }
 
         public async Task<bool> CheckTrainerAvailability(Guid trainerId, DateTime date, TimeSpan startTime, TimeSpan endTime)
