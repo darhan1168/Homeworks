@@ -105,7 +105,28 @@ namespace BLL.Services
 
         public async Task UpdatePassword(Guid userId, string newPassword)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await GetById(userId);
+
+                if (user is null)
+                {
+                    throw new Exception("User is null");
+                }
+
+                if (user.PasswordHash == newPassword)
+                {
+                    throw new Exception("New password equals previous password");
+                }
+
+                user.PasswordHash = newPassword;
+
+                await Update(userId, user);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to update password {newPassword}. Exception: {ex.Message}");
+            }
         }
 
         public async Task ResetPassword(Guid userId)
