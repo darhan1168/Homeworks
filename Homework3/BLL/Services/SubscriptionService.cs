@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BLL.Abstractions.Interfaces;
+using Core.Enums;
 using Core.Models;
 using DAL.Abstractions.Interfaces;
 
@@ -89,7 +90,34 @@ namespace BLL.Services
 
         public async Task RenewSubscription(Guid subscriptionId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var subscription = await GetById(subscriptionId);
+                
+                if (subscription is null)
+                {
+                    throw new Exception("Subscription is null");
+                }
+
+                switch (subscription.Type)
+                {
+                    case SubscriptionType.Monthly:
+                        subscription.EndDate = subscription.EndDate.AddMonths(1);
+                        break;
+                    case SubscriptionType.Quarterly:
+                        subscription.EndDate = subscription.EndDate.AddMonths(3);
+                        break;
+                    case SubscriptionType.Annual:
+                        subscription.EndDate = subscription.EndDate.AddYears(1);
+                        break;
+                    default:
+                        throw new Exception("Invalid subscription type");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to renew subscription {subscriptionId}. Exception: {ex.Message}");
+            }
         }
 
         public async Task CancelSubscription(Guid subscriptionId)
