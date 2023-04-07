@@ -48,7 +48,10 @@ namespace BLL.Services
 
         public async Task<List<Booking>> GetBookingsByClass(Guid classId)
         {
-            throw new NotImplementedException();
+            var fitClass = await _classService.GetById(classId);
+            var bookings = await GetAll();
+
+            return bookings.Where(b => b.Class == fitClass).ToList();
         }
 
         public async Task<List<Booking>> GetBookingsByDate(DateTime date)
