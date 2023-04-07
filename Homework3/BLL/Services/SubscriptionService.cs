@@ -18,7 +18,28 @@ namespace BLL.Services
 
         public async Task<Subscription> CreateSubscription(Subscription subscription)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var subscriptions = await GetAll();
+                
+                if (subscription is null)
+                {
+                    throw new Exception("Subscription is null");
+                }
+
+                if (subscriptions.Contains(subscription))
+                {
+                    throw new Exception("Subscription is already added");
+                }
+
+                await Add(subscription);
+
+                return subscription;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to create subscription {subscription}. Exception: {ex.Message}");
+            }
         }
 
         public async Task<List<Subscription>> GetSubscriptionsByMember(Guid memberId)
