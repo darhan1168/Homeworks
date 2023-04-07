@@ -112,6 +112,8 @@ namespace BLL.Services
                     throw new Exception("Subscription is null");
                 }
 
+                subscription.StartDate = subscription.EndDate;
+                
                 switch (subscription.Type)
                 {
                     case SubscriptionType.Monthly:
