@@ -21,7 +21,20 @@ namespace BLL.Services
 
         public async Task<Booking> BookClass(Guid memberId, Guid classId)
         {
-            throw new NotImplementedException();
+            var member = await _memberService.GetById(memberId);
+            var fitClass = await _classService.GetById(classId);
+
+            var booking = new Booking()
+            {
+                Member = member,
+                Class = fitClass,
+                Date = DateTime.Now,
+                IsConfirmed = false
+            };
+
+            await Add(booking);
+
+            return booking;
         }
 
         public async Task<List<Booking>> GetBookingsByMember(Guid memberId)
