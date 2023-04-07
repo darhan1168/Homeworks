@@ -76,12 +76,24 @@ namespace BLL.Services
             {
                 var subscriptions = await GetAll();
 
-                if (subscriptions is null)
+                SubscriptionType avaibleTipe;
+
+                switch (subscriptionType)
                 {
-                    throw new Exception("Subscriptions are null");
+                    case "Annual":
+                        avaibleTipe = SubscriptionType.Annual.Admin;
+                        break;
+                    case "Monthly":
+                        avaibleTipe = SubscriptionType.Monthly.Trainer;
+                        break;
+                    case "Quarterly":
+                        avaibleTipe = SubscriptionType.Quarterly.Member;
+                        break;
+                    default:
+                        throw new Exception("Incorrect role");
                 }
-                
-                return subscriptions.Where(s => Equals(s.Type, subscriptionType)).ToList();
+
+                return subscriptions.Where(u => u.Type == avaibleTipe).ToList();
             }
             catch (Exception ex)
             {
