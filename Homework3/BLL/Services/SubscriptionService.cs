@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BLL.Abstractions.Interfaces;
 using Core.Models;
@@ -44,7 +45,27 @@ namespace BLL.Services
 
         public async Task<List<Subscription>> GetSubscriptionsByMember(Guid memberId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var subscriptions = await GetAll();
+                var member = await _memberService.GetById(memberId);
+                
+                if (subscriptions is null)
+                {
+                    throw new Exception("Subscriptions are null");
+                }
+                
+                if (member is null)
+                {
+                    throw new Exception("Member is null");
+                }
+
+                return subscriptions.Where(s => s.Member == member).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to get subscriptions by member {memberId}. Exception: {ex.Message}");
+            }
         }
 
         public async Task<List<Subscription>> GetSubscriptionsByType(string subscriptionType)
