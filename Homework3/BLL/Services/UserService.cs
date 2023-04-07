@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BLL.Abstractions.Interfaces;
 using Core.Models;
@@ -16,12 +17,53 @@ namespace BLL.Services
 
         public async Task<User> Authenticate(string username, string password)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await GetUserByUsername(username);
+
+                if (user is null)
+                {
+                    throw new Exception("User is null");
+                }
+
+                if (user.PasswordHash == password)
+                {
+                    return user;
+                }
+
+                throw new Exception("Password is not correct");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to authenticate {username} and {password}. Exception: {ex.Message}");
+            }
         }
 
         public async Task<User> GetUserByUsername(string username)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var users = await GetAll();
+
+                if (users is null)
+                {
+                    throw new Exception("Users are null");
+                }
+
+                foreach (var user in users)
+                {
+                    if (user.Username == username)
+                    {
+                        return user;
+                    }
+                }
+
+                throw new Exception();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to get user by username {username}. Exception: {ex.Message}");
+            }
         }
 
         public async Task<List<User>> GetUsersByRole(string role)
