@@ -22,52 +22,127 @@ namespace BLL.Services
 
         public async Task<Booking> BookClass(Guid memberId, Guid classId)
         {
-            var member = await _memberService.GetById(memberId);
-            var fitClass = await _classService.GetById(classId);
-
-            var booking = new Booking()
+            try
             {
-                Member = member,
-                Class = fitClass,
-                Date = DateTime.Now,
-                IsConfirmed = false
-            };
+                var member = await _memberService.GetById(memberId);
+                var fitClass = await _classService.GetById(classId);
 
-            await Add(booking);
-
-            return booking;
+                if (member is null)
+                {
+                    throw new Exception("Member is null");
+                }
+                
+                if (fitClass is null)
+                {
+                    throw new Exception("Class is null");
+                }
+            
+                var booking = new Booking()
+                {
+                    Member = member,
+                    Class = fitClass,
+                    Date = DateTime.Now,
+                    IsConfirmed = false
+                };
+            
+                await Add(booking);
+            
+                return booking;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to add booking");
+            }
         }
 
         public async Task<List<Booking>> GetBookingsByMember(Guid memberId)
         {
-            var member = await _memberService.GetById(memberId);
-            var bookings = await GetAll();
+            try
+            {
+                var member = await _memberService.GetById(memberId);
+                var bookings = await GetAll();
+                
+                if (member is null)
+                {
+                    throw new Exception("Member is null");
+                }
+                
+                if (bookings is null)
+                {
+                    throw new Exception("Bookings is null");
+                }
 
-            return bookings.Where(b => b.Member == member).ToList();
+                return bookings.Where(b => b.Member == member).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to get bookings by member");
+            }
         }
 
         public async Task<List<Booking>> GetBookingsByClass(Guid classId)
         {
-            var fitClass = await _classService.GetById(classId);
-            var bookings = await GetAll();
+            try
+            {
+                var fitClass = await _classService.GetById(classId);
+                var bookings = await GetAll();
+                
+                if (fitClass is null)
+                {
+                    throw new Exception("Class is null");
+                }
+                
+                if (bookings is null)
+                {
+                    throw new Exception("Bookings is null");
+                }
 
-            return bookings.Where(b => b.Class == fitClass).ToList();
+                return bookings.Where(b => b.Class == fitClass).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to get bookings by class");
+            }
         }
 
         public async Task<List<Booking>> GetBookingsByDate(DateTime date)
         {
-            var bookings = await GetAll();
+            try
+            {
+                var bookings = await GetAll();
 
-            return bookings.Where(b => b.Date == date).ToList();
+                if (bookings is null)
+                {
+                    throw new Exception("Bookings is null");
+                }
+
+                return bookings.Where(b => b.Date == date).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to get bookings by date");
+            }
         }
 
         public async Task ConfirmBooking(Guid bookingId)
         {
-            var booking = await GetById(bookingId);
+            try
+            {
+                var booking = await GetById(bookingId);
 
-            booking.IsConfirmed = true;
+                if (booking is null)
+                {
+                    throw new Exception("Booking is null");
+                }
 
-            await Update(bookingId, booking);
+                booking.IsConfirmed = true;
+
+                await Update(bookingId, booking);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to confirm booking");
+            }
         }
     }
 }
