@@ -34,6 +34,7 @@ namespace BLL.Services
                     throw new Exception("Subscription is already added");
                 }
 
+                subscription.IsActive = true;
                 await Add(subscription);
 
                 return subscription;
