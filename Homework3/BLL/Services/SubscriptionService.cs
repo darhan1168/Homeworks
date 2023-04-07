@@ -70,7 +70,21 @@ namespace BLL.Services
 
         public async Task<List<Subscription>> GetSubscriptionsByType(string subscriptionType)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var subscriptions = await GetAll();
+
+                if (subscriptions is null)
+                {
+                    throw new Exception("Subscriptions are null");
+                }
+                
+                return subscriptions.Where(s => Equals(s.Type, subscriptionType)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to get subscriptions by type {subscriptionType}. Exception: {ex.Message}");
+            }
         }
 
         public async Task RenewSubscription(Guid subscriptionId)
