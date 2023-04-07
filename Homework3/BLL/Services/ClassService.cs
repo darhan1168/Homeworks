@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BLL.Abstractions.Interfaces;
 using Core.Models;
@@ -19,22 +20,31 @@ namespace BLL.Services
 
         public async Task<FitnessClass> ScheduleClass(FitnessClass fitnessClass)
         {
-            throw new NotImplementedException();
+            await Add(fitnessClass);
+
+            return fitnessClass;
         }
 
         public async Task<List<FitnessClass>> GetClassesByDate(DateTime date)
         {
-            throw new NotImplementedException();
+            var classes = await GetAll();
+
+            return classes.Where(c => c.Date == date).ToList();
         }
 
         public async Task<List<FitnessClass>> GetClassesByType(string classType)
         {
-            throw new NotImplementedException();
+            var classes = await GetAll();
+
+            return classes.Where(c => c.Type == classType).ToList();
         }
 
         public async Task<List<FitnessClass>> GetClassesByTrainer(Guid trainerId)
         {
-            throw new NotImplementedException();
+            var classes = await GetAll();
+            var trainer = await _trainerService.GetById(trainerId);
+
+            return classes.Where(c => c.Trainer == trainer).ToList();
         }
 
         public async Task AddAttendeeToClass(Guid classId, Guid memberId)
