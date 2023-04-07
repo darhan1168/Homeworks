@@ -131,7 +131,23 @@ namespace BLL.Services
 
         public async Task ResetPassword(Guid userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await GetById(userId);
+
+                if (user is null)
+                {
+                    throw new Exception("User is null");
+                }
+
+                user.PasswordHash = GeneratePassword();
+
+                await Update(userId, user);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to reset password {userId}. Exception: {ex.Message}");
+            }
         }
 
         public async Task LockUser(Guid userId)
@@ -142,6 +158,17 @@ namespace BLL.Services
         public async Task UnlockUser(Guid userId)
         {
             throw new NotImplementedException();
+        }
+        
+        public static string GeneratePassword()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            var password = new string(
+                Enumerable.Repeat(chars, 8)
+                    .Select(s => s[random.Next(s.Length)])
+                    .ToArray());
+            return password;
         }
     }
 }
