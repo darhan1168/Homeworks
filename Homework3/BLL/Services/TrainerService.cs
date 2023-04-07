@@ -12,9 +12,12 @@ namespace BLL.Services
 {
     public class TrainerService : GenericService<Trainer>, ITrainerService
     {
-        public TrainerService(IRepository<Trainer> repository)
+        private readonly IClassService _classService;
+        
+        public TrainerService(IRepository<Trainer> repository, IClassService classService)
             : base(repository)
         {
+            _classService = classService;
         }
 
         public async Task<Trainer> AddTrainer(Trainer trainer)
