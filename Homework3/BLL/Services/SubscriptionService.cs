@@ -114,6 +114,8 @@ namespace BLL.Services
                     default:
                         throw new Exception("Invalid subscription type");
                 }
+
+                await Update(subscriptionId, subscription);
             }
             catch (Exception ex)
             {
