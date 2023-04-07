@@ -124,6 +124,8 @@ namespace BLL.Services
                 }
 
                 fitClass.Trainer = trainer;
+
+                await _classService.Update(classId, fitClass);
             }
             catch (Exception ex)
             {
