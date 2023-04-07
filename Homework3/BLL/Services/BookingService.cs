@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BLL.Abstractions.Interfaces;
 using Core.Models;
@@ -39,7 +40,10 @@ namespace BLL.Services
 
         public async Task<List<Booking>> GetBookingsByMember(Guid memberId)
         {
-            throw new NotImplementedException();
+            var member = await _memberService.GetById(memberId);
+            var bookings = await GetAll();
+
+            return bookings.Where(b => b.Member == member).ToList();
         }
 
         public async Task<List<Booking>> GetBookingsByClass(Guid classId)
