@@ -27,6 +27,11 @@ namespace BLL.Services
                     throw new Exception("User is null");
                 }
 
+                if (user.IsLocked)
+                {
+                    throw new Exception("User is locked");
+                }
+
                 if (user.PasswordHash == password)
                 {
                     return user;
