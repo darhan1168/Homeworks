@@ -157,12 +157,44 @@ namespace BLL.Services
 
         public async Task LockUser(Guid userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await GetById(userId);
+
+                if (user is null)
+                {
+                    throw new Exception("User is null");
+                }
+
+                user.IsLocked = true;
+
+                await Update(userId, user);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to lock user {userId}. Exception: {ex.Message}");
+            }
         }
 
         public async Task UnlockUser(Guid userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await GetById(userId);
+
+                if (user is null)
+                {
+                    throw new Exception("User is null");
+                }
+
+                user.IsLocked = false;
+
+                await Update(userId, user);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to unlock user {userId}. Exception: {ex.Message}");
+            }
         }
         
         public static string GeneratePassword()
