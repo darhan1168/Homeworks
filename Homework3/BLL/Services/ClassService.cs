@@ -33,7 +33,7 @@ namespace BLL.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to add fitness class. Exception: {ex.Message}");
+                throw new Exception($"Failed to add fitness class {fitnessClass}. Exception: {ex.Message}");
             }
         }
 
@@ -52,7 +52,7 @@ namespace BLL.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to get classes by date. Exception: {ex.Message}");
+                throw new Exception($"Failed to get classes by date {date}. Exception: {ex.Message}");
             }
         }
 
@@ -71,7 +71,7 @@ namespace BLL.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to get classes by type. Exception: {ex.Message}");
+                throw new Exception($"Failed to get classes by type {classType}. Exception: {ex.Message}");
             }
         }
 
@@ -96,13 +96,14 @@ namespace BLL.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to get classes by trainer. Exception: {ex.Message}");
+                throw new Exception($"Failed to get classes by trainer {trainerId}. Exception: {ex.Message}");
             }
         }
 
         public async Task AddAttendeeToClass(Guid classId, Guid memberId)
         {
             var fitClass = await GetById(classId);
+            
             
         }
     }
