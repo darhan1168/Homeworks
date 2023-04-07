@@ -19,51 +19,123 @@ namespace BLL.Services
 
         public async Task<Member> RegisterMember(Member member)
         {
-            await Add(member);
+            try
+            {
+                if (member is null)
+                {
+                    throw new Exception("Member is null");
+                }
 
-            return member;
+                await Add(member);
+
+                return member;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to register member. Exception: {ex.Message}");
+            }
         }
 
         public async Task<List<Member>> GetActiveMembers()
         {
-            var members = await GetAll();
+            try
+            {
+                var members = await GetAll();
+                
+                if (members is null)
+                {
+                    throw new Exception("Members are null");
+                }
 
-            return members.Where(m => m.IsActive == true).ToList();
+                return members.Where(m => m.IsActive).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to get active members. Exception: {ex.Message}");
+            }
         }
 
         public async Task<List<Member>> GetMembersBySubscriptionType(string subscriptionType)
         {
-            var members = await GetAll();
+            try
+            {
+                var members = await GetAll();
+                
+                if (members is null)
+                {
+                    throw new Exception("Members are null");
+                }
 
-            return members.Where(m => Equals(m.SubscriptionType, subscriptionType)).ToList();
+                return members.Where(m => Equals(m.SubscriptionType, subscriptionType)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to get members by subscription type. Exception: {ex.Message}");
+            }
         }
 
         public async Task<List<Member>> GetMembersWithUpcomingRenewal(DateTime startDate, DateTime endDate)
         {
-            var members = await GetAll();
+            try
+            {
+                var members = await GetAll();
+                
+                if (members is null)
+                {
+                    throw new Exception("Members are null");
+                }
 
-            return members.Where(m => m.SubscriptionStartDate > startDate && m.SubscriptionEndDate < endDate).ToList();
+                return members.Where(m => m.SubscriptionStartDate > startDate && m.SubscriptionEndDate < endDate).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to get members with upcoming renewal. Exception: {ex.Message}");
+            }
         }
 
         public async Task<bool> CheckMemberAttendance(Guid memberId, DateTime date)
         {
-            var member = await GetById(memberId);
-
-            if (member.SubscriptionStartDate == date)
+            try
             {
-                return true;
-            }
+                var member = await GetById(memberId);
+                
+                if (member is null)
+                {
+                    throw new Exception("Member is null");
+                }
 
-            return false;
+                if (member.SubscriptionStartDate == date)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to check member attendance. Exception: {ex.Message}");
+            }
         }
 
         public async Task RecordMemberAttendance(Guid memberId, DateTime date)
         {
-            var member = await GetById(memberId);
+            try
+            {
+                var member = await GetById(memberId);
+                
+                if (member is null)
+                {
+                    throw new Exception("Member is null");
+                }
 
-            member.SubscriptionStartDate = date;
+                member.SubscriptionStartDate = date;
 
-            await Update(memberId, member);
+                await Update(memberId, member);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to record member attendance. Exception: {ex.Message}");
+            }
         }
     }
 }
