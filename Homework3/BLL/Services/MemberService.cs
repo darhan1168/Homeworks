@@ -32,7 +32,7 @@ namespace BLL.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to register member. Exception: {ex.Message}");
+                throw new Exception($"Failed to register member {member}. Exception: {ex.Message}");
             }
         }
 
@@ -70,7 +70,7 @@ namespace BLL.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to get members by subscription type. Exception: {ex.Message}");
+                throw new Exception($"Failed to get members by subscription type {subscriptionType}. Exception: {ex.Message}");
             }
         }
 
@@ -89,7 +89,7 @@ namespace BLL.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to get members with upcoming renewal. Exception: {ex.Message}");
+                throw new Exception($"Failed to get members with upcoming renewal {startDate} - {endDate}. Exception: {ex.Message}");
             }
         }
 
@@ -113,7 +113,7 @@ namespace BLL.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to check member attendance. Exception: {ex.Message}");
+                throw new Exception($"Failed to check member attendance {memberId}. Exception: {ex.Message}");
             }
         }
 
@@ -134,7 +134,7 @@ namespace BLL.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to record member attendance. Exception: {ex.Message}");
+                throw new Exception($"Failed to record member attendance {memberId}. Exception: {ex.Message}");
             }
         }
     }
