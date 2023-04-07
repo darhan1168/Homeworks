@@ -76,7 +76,7 @@ namespace BLL.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to get bookings by member. Exception: {ex.Message}");
+                throw new Exception($"Failed to get bookings by member {memberId}. Exception: {ex.Message}");
             }
         }
 
@@ -101,7 +101,7 @@ namespace BLL.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to get bookings by class. Exception: {ex.Message}");
+                throw new Exception($"Failed to get bookings by class {classId}. Exception: {ex.Message}");
             }
         }
 
@@ -120,7 +120,7 @@ namespace BLL.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to get bookings by date.Exception: {ex.Message}");
+                throw new Exception($"Failed to get bookings by date {date}. Exception: {ex.Message}");
             }
         }
 
@@ -141,7 +141,7 @@ namespace BLL.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to confirm booking. Exception: {ex.Message}");
+                throw new Exception($"Failed to confirm booking {bookingId}. Exception: {ex.Message}");
             }
         }
     }
