@@ -63,7 +63,11 @@ namespace BLL.Services
 
         public async Task ConfirmBooking(Guid bookingId)
         {
-            throw new NotImplementedException();
+            var booking = await GetById(bookingId);
+
+            booking.IsConfirmed = true;
+
+            await Update(bookingId, booking);
         }
     }
 }
