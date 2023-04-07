@@ -56,7 +56,9 @@ namespace BLL.Services
 
         public async Task<List<Booking>> GetBookingsByDate(DateTime date)
         {
-            throw new NotImplementedException();
+            var bookings = await GetAll();
+
+            return bookings.Where(b => b.Date == date).ToList();
         }
 
         public async Task ConfirmBooking(Guid bookingId)
