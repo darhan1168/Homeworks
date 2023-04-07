@@ -11,11 +11,13 @@ namespace BLL.Services
     public class ClassService : GenericService<FitnessClass>, IClassService
     {
         private readonly ITrainerService _trainerService;
+        private readonly IMemberService _memberService;
 
-        public ClassService(IRepository<FitnessClass> repository, ITrainerService trainerService)
+        public ClassService(IRepository<FitnessClass> repository, ITrainerService trainerService, IMemberService memberService)
             : base(repository)
         {
             _trainerService = trainerService;
+            _memberService = memberService;
         }
 
         public async Task<FitnessClass> ScheduleClass(FitnessClass fitnessClass)
