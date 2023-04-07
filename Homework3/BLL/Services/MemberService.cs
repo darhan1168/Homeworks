@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BLL.Abstractions.Interfaces;
 using Core.Models;
@@ -18,32 +19,51 @@ namespace BLL.Services
 
         public async Task<Member> RegisterMember(Member member)
         {
-            throw new NotImplementedException();
+            await Add(member);
+
+            return member;
         }
 
         public async Task<List<Member>> GetActiveMembers()
         {
-            throw new NotImplementedException();
+            var members = await GetAll();
+
+            return members.Where(m => m.IsActive == true).ToList();
         }
 
         public async Task<List<Member>> GetMembersBySubscriptionType(string subscriptionType)
         {
-            throw new NotImplementedException();
+            var members = await GetAll();
+
+            return members.Where(m => Equals(m.SubscriptionType, subscriptionType)).ToList();
         }
 
         public async Task<List<Member>> GetMembersWithUpcomingRenewal(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            var members = await GetAll();
+
+            return members.Where(m => m.SubscriptionStartDate > startDate && m.SubscriptionEndDate < endDate).ToList();
         }
 
         public async Task<bool> CheckMemberAttendance(Guid memberId, DateTime date)
         {
-            throw new NotImplementedException();
+            var member = await GetById(memberId);
+
+            if (member.SubscriptionStartDate == date)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public async Task RecordMemberAttendance(Guid memberId, DateTime date)
         {
-            throw new NotImplementedException();
+            var member = await GetById(memberId);
+
+            member.SubscriptionStartDate = date;
+
+            await Update(memberId, member);
         }
     }
 }
