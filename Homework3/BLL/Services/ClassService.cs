@@ -104,9 +104,32 @@ namespace BLL.Services
 
         public async Task AddAttendeeToClass(Guid classId, Guid memberId)
         {
-            var fitClass = await GetById(classId);
-            
-            
+            try
+            {
+                var fitClass = await GetById(classId);
+                var member = await _memberService.GetById(memberId);
+                
+                if (fitClass is null)
+                {
+                    throw new Exception("Class is null");
+                }
+                
+                if (member is null)
+                {
+                    throw new Exception("Member is null");
+                }
+
+                if (fitClass.Attendees.Contains(member))
+                {
+                    throw new Exception("Member already added in class");
+                }
+                
+                fitClass.Attendees.Add(member);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to add attendee class {classId}. Exception: {ex.Message}");
+            }
         }
     }
 }
