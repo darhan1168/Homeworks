@@ -81,13 +81,13 @@ namespace BLL.Services
                 switch (subscriptionType)
                 {
                     case "Annual":
-                        avaibleTipe = SubscriptionType.Annual.Admin;
+                        avaibleTipe = SubscriptionType.Annual;
                         break;
                     case "Monthly":
-                        avaibleTipe = SubscriptionType.Monthly.Trainer;
+                        avaibleTipe = SubscriptionType.Monthly;
                         break;
                     case "Quarterly":
-                        avaibleTipe = SubscriptionType.Quarterly.Member;
+                        avaibleTipe = SubscriptionType.Quarterly;
                         break;
                     default:
                         throw new Exception("Incorrect role");
