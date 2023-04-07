@@ -20,36 +20,90 @@ namespace BLL.Services
 
         public async Task<FitnessClass> ScheduleClass(FitnessClass fitnessClass)
         {
-            await Add(fitnessClass);
+            try
+            {
+                if (fitnessClass is null)
+                {
+                    throw new Exception("Fitness class is null");
+                }
 
-            return fitnessClass;
+                await Add(fitnessClass);
+
+                return fitnessClass;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to add fitness class. Exception: {ex.Message}");
+            }
         }
 
         public async Task<List<FitnessClass>> GetClassesByDate(DateTime date)
         {
-            var classes = await GetAll();
+            try
+            {
+                var classes = await GetAll();
+                
+                if (classes is null)
+                {
+                    throw new Exception("Classes is null");
+                }
 
-            return classes.Where(c => c.Date == date).ToList();
+                return classes.Where(c => c.Date == date).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to get classes by date. Exception: {ex.Message}");
+            }
         }
 
         public async Task<List<FitnessClass>> GetClassesByType(string classType)
         {
-            var classes = await GetAll();
+            try
+            {
+                var classes = await GetAll();
+                
+                if (classes is null)
+                {
+                    throw new Exception("Classes is null");
+                }
 
-            return classes.Where(c => c.Type == classType).ToList();
+                return classes.Where(c => c.Type == classType).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to get classes by type. Exception: {ex.Message}");
+            }
         }
 
         public async Task<List<FitnessClass>> GetClassesByTrainer(Guid trainerId)
         {
-            var classes = await GetAll();
-            var trainer = await _trainerService.GetById(trainerId);
+            try
+            {
+                var classes = await GetAll();
+                var trainer = await _trainerService.GetById(trainerId);
+                
+                if (classes is null)
+                {
+                    throw new Exception("Classes is null");
+                }
+                
+                if (trainer is null)
+                {
+                    throw new Exception("Trainer is null");
+                }
 
-            return classes.Where(c => c.Trainer == trainer).ToList();
+                return classes.Where(c => c.Trainer == trainer).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to get classes by trainer. Exception: {ex.Message}");
+            }
         }
 
         public async Task AddAttendeeToClass(Guid classId, Guid memberId)
         {
-            throw new NotImplementedException();
+            var fitClass = await GetById(classId);
+            
         }
     }
 }
