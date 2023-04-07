@@ -9,8 +9,11 @@ namespace BLL.Services
 {
     public class SubscriptionService : GenericService<Subscription>, ISubscriptionService
     {
-        public SubscriptionService(IRepository<Subscription> repository) : base(repository)
+        private readonly IMemberService _memberService;
+        
+        public SubscriptionService(IRepository<Subscription> repository, IMemberService memberService) : base(repository)
         {
+            _memberService = memberService;
         }
 
         public async Task<Subscription> CreateSubscription(Subscription subscription)
