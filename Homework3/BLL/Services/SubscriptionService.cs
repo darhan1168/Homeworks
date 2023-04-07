@@ -123,7 +123,28 @@ namespace BLL.Services
 
         public async Task CancelSubscription(Guid subscriptionId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var subscription = await GetById(subscriptionId);
+
+                if (subscription is null)
+                {
+                    throw new Exception("Subscription is null");
+                }
+
+                if (!subscription.IsActive)
+                {
+                    throw new Exception("Subscription is already inactive");
+                }
+
+                subscription.IsActive = false;
+                
+                await Delete(subscriptionId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to cancel subscription {subscriptionId}. Exception: {ex.Message}");
+            }
         }
     }
 }
