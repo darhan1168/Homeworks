@@ -65,7 +65,36 @@ namespace UI.ConsoleManagers
 
         public async Task CreateBookingAsync()
         {
-            // Implementation for creating a new booking
+            try
+            {
+                var members = await _memberConsoleManager.GetAllAsync();
+                var classes = await _classConsoleManager.GetAllAsync();
+                
+                Console.WriteLine("Enter id of member");
+                Guid memberId = new Guid(Console.ReadLine());
+                var member = await _memberConsoleManager.GetByIdAsync(memberId);
+
+                if (!members.Contains(member) || member is null)
+                {
+                    throw new Exception("This member is not found");
+                }
+                
+                Console.WriteLine("Enter id of class");
+                Guid classId = new Guid(Console.ReadLine());
+                var fitClass = await _classConsoleManager.GetByIdAsync(classId);
+
+                if (!classes.Contains(fitClass) || fitClass is null)
+                {
+                    throw new Exception("This class is not found");
+                }
+                
+                await Service.BookClass(memberId, classId);
+                Console.WriteLine("Booking added");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to create booking. Exception: {ex.Message}");
+            }
         }
 
         public async Task UpdateBookingAsync()
