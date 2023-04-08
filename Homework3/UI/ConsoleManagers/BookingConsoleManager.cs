@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BLL.Abstractions.Interfaces;
 using Core.Models;
@@ -88,8 +89,11 @@ namespace UI.ConsoleManagers
                     throw new Exception("This class is not found");
                 }
                 
-                await Service.BookClass(memberId, classId);
-                Console.WriteLine("Booking added");
+                var booking = await Service.BookClass(memberId, classId);
+
+                await Service.ConfirmBooking(booking.Id);
+                
+                Console.WriteLine("Booking added and confirmed");
             }
             catch (Exception ex)
             {
