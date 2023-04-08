@@ -90,6 +90,7 @@ namespace UI.ConsoleManagers
                 }
                 
                 var booking = await Service.BookClass(memberId, classId);
+                await CreateAsync(booking);
 
                 await Service.ConfirmBooking(booking.Id);
                 
