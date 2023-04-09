@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BLL.Abstractions.Interfaces;
 using Core.Models;
@@ -57,7 +58,7 @@ namespace UI.ConsoleManagers
 
             foreach (var trainer in await Service.GetAll())
             {
-                Console.WriteLine($"{index} - {trainer.FirstName}, {trainer.LastName}, {trainer.Specialization}");
+                Console.WriteLine($"{index} - {trainer.FirstName}, {trainer.LastName}, {trainer.Specialization}, {trainer.Id}");
 
                 index++;
             }
@@ -117,7 +118,18 @@ namespace UI.ConsoleManagers
 
         public async Task DeleteTrainerAsync()
         {
-            // Implementation for deleting a trainer
+            try
+            {
+                Console.WriteLine("Enter your trainer id");
+                Guid trainerId = new Guid(Console.ReadLine());
+                
+                await Service.Delete(trainerId);
+                Console.WriteLine("Trainer was deleted");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to delete trainer. Exception: {ex.Message}");
+            }
         }
 
         public ICollection<DateTime> CreateDateList()
