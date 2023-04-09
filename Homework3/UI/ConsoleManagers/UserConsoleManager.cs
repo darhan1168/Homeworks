@@ -117,11 +117,11 @@ namespace UI.ConsoleManagers
                 }
                 else if (answerRole == "2")
                 {
-                    role = UserRole.Admin;
+                    role = UserRole.Trainer;
                 }
                 else if (answerRole == "3")
                 {
-                    role = UserRole.Admin;
+                    role = UserRole.Member;
                 }
                 else
                 {
