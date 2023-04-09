@@ -53,7 +53,14 @@ namespace UI.ConsoleManagers
 
         public async Task DisplayAllTrainersAsync()
         {
-            // Implementation for displaying all trainers
+            int index = 1;
+
+            foreach (var trainer in await Service.GetAll())
+            {
+                Console.WriteLine($"{index} - {trainer.FirstName}, {trainer.LastName}, {trainer.Specialization}");
+
+                index++;
+            }
         }
 
         public async Task CreateTrainerAsync()
@@ -62,12 +69,27 @@ namespace UI.ConsoleManagers
             {
                 Console.WriteLine("Enter firstname of trainer");
                 var firstName = Console.ReadLine();
+
+                if (firstName is null)
+                {
+                    throw new Exception("firstName is not found");
+                }
                 
                 Console.WriteLine("Enter lastname of trainer");
                 var lastName = Console.ReadLine();
                 
+                if (lastName is null)
+                {
+                    throw new Exception("lastName is not found");
+                }
+                
                 Console.WriteLine("Enter specialization of trainer");
                 var specialization = Console.ReadLine();
+                
+                if (specialization is null)
+                {
+                    throw new Exception("specialization is not found");
+                }
                 
                 Console.WriteLine("Enter available dates of trainer");
 
