@@ -69,6 +69,11 @@ namespace UI.ConsoleManagers
                     Console.WriteLine($"{index} - Role: {user.Role}, Username: {user.Username}");
                     index++;
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to display all users. Exception: {ex.Message}");
+            }
         }
 
         public async Task CreateUserAsync()
