@@ -179,7 +179,23 @@ namespace UI.ConsoleManagers
 
         public async Task DeleteUserAsync()
         {
-            // Implementation for deleting a user
+            try
+            {
+                Console.WriteLine("Enter your username");
+                var username = Console.ReadLine();
+                
+                Console.WriteLine("Enter your password");
+                var password = Console.ReadLine();
+
+                var user = await Service.Authenticate(username, password);
+
+                await Service.Delete(user.Id);
+                Console.WriteLine("User was deleted");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to delete user. Exception: {ex.Message}");
+            }
         }
         
         public static string GeneratePassword()
