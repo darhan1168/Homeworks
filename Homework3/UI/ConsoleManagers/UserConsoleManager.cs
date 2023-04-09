@@ -130,7 +130,7 @@ namespace UI.ConsoleManagers
                 
                 await Service.Add(new User()
                 {
-                    Id = new Guid(),
+                    Id = Guid.NewGuid(),
                     Username = username,
                     PasswordHash = password,
                     Role = role,
