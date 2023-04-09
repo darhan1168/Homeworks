@@ -53,7 +53,22 @@ namespace UI.ConsoleManagers
 
         public async Task DisplayAllUsersAsync()
         {
-            // Implementation for displaying all users
+            try
+            {
+                var users = await Service.GetAll();
+
+                if (users is null)
+                {
+                    throw new Exception("Users are not found");
+                }
+                
+                int index = 1;
+
+                foreach (var user in users)
+                {
+                    Console.WriteLine($"{index} - Role: {user.Role}, Username: {user.Username}");
+                    index++;
+                }
         }
 
         public async Task CreateUserAsync()
