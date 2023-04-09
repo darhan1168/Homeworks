@@ -145,7 +145,36 @@ namespace UI.ConsoleManagers
 
         public async Task UpdateUserAsync()
         {
-            // Implementation for updating a user
+            try
+            {
+                Console.WriteLine("Enter your username");
+                var username = Console.ReadLine();
+                
+                Console.WriteLine("Enter your password");
+                var password = Console.ReadLine();
+
+                var user = await Service.Authenticate(username, password);
+
+                Console.WriteLine("Enter new password or 1 - generate");
+                var answerPassword = Console.ReadLine();
+                string newPassword;
+                
+                if (answerPassword == "1")
+                {
+                    newPassword = GeneratePassword();
+                    Console.WriteLine($"Your new password: {newPassword}");
+                }
+                else
+                {
+                    newPassword = answerPassword;
+                }
+
+                await Service.UpdatePassword(user.Id, newPassword);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to update user. Exception: {ex.Message}");
+            }
         }
 
         public async Task DeleteUserAsync()
