@@ -91,7 +91,37 @@ namespace UI.ConsoleManagers
 
         public async Task UpdateClassAsync()
         {
-            // Implementation for updating a class
+            try
+            {
+                Console.WriteLine("Enter id of class, which you need to update");
+                var fitClass = await Service.GetById(new Guid(Console.ReadLine()));
+            
+                Console.WriteLine("Eneter what yoy need to change (1 - Name, 2 - Type)");
+                var answerUpdate = Console.ReadLine();
+
+                if (answerUpdate == "1")
+                {
+                    Console.WriteLine("Enter new name");
+                    var newName = Console.ReadLine();
+                    fitClass.Name = newName;
+                }
+                else if (answerUpdate == "1")
+                {
+                    Console.WriteLine("Enter new type");
+                    var newType = Console.ReadLine();
+                    fitClass.Type = newType;
+                }
+                else
+                {
+                    throw new Exception("Incorrect answer");
+                }
+
+                await Service.Update(fitClass.Id, fitClass);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to update class. Exception: {ex.Message}");
+            }
         }
 
         public async Task DeleteClassAsync()
