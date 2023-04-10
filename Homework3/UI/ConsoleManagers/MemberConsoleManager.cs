@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using BLL.Abstractions.Interfaces;
+using Core.Enums;
 using Core.Models;
 using UI.Interfaces;
 
@@ -58,7 +60,91 @@ namespace UI.ConsoleManagers
 
         public async Task AddMemberAsync()
         {
-            // Implementation for adding a new member
+            try
+            {
+                Console.WriteLine("Enter firstname");
+                var firstName = Console.ReadLine();
+
+                if (firstName is null)
+                {
+                    throw new Exception("Firstname is null");
+                }
+                
+                Console.WriteLine("Enter lastname");
+                var lastName = Console.ReadLine();
+
+                if (lastName is null)
+                {
+                    throw new Exception("LastName is null");
+                }
+                
+                Console.WriteLine("Enter day of birthday");
+                string format = "dd.MM.yyyy";
+                DateTime dateOfBirth = DateTime.ParseExact(Console.ReadLine(), format, null);
+
+                Console.WriteLine("Enter your email");
+                var email = Console.ReadLine();
+
+                MailAddress mailAddress;
+                if (!MailAddress.TryCreate(email, out mailAddress))
+                {
+                    throw new Exception("Email is not correct");
+                }
+
+                Console.WriteLine("Enter phone number");
+                var phoneNum = Console.ReadLine();
+
+                if (phoneNum is null)
+                {
+                    throw new Exception("Phone number is null");
+                }
+                
+                Console.WriteLine("Enter type (1 - Monthly, 2 - Quarterly, 3 - Annual,)");
+                var answerType = Console.ReadLine();
+                SubscriptionType type;
+                DateTime subscriptionStartDate = DateTime.Now;
+                DateTime subscriptionEndDate;
+                
+                if (answerType == "1")
+                {
+                    subscriptionEndDate = DateTime.Now.AddMonths(1);
+                    type = SubscriptionType.Monthly;
+                }
+                else if (answerType == "2")
+                {
+                    subscriptionEndDate = DateTime.Now.AddMonths(3);
+                    type = SubscriptionType.Quarterly;
+                }
+                else if (answerType == "3")
+                {
+                    subscriptionEndDate = DateTime.Now.AddYears(1);
+                    type = SubscriptionType.Annual;
+                }
+                else
+                {
+                    throw new Exception("Incorrect answer about type");
+                }
+
+                await Service.RegisterMember(new Member()
+                {
+                    Id = Guid.NewGuid(),
+                    FirstName = firstName,
+                    LastName = lastName,
+                    DateOfBirth = dateOfBirth,
+                    Email = email,
+                    PhoneNumber = phoneNum,
+                    SubscriptionType = type,
+                    SubscriptionStartDate = subscriptionStartDate,
+                    SubscriptionEndDate = subscriptionEndDate,
+                    IsActive = true
+                });
+                
+                Console.WriteLine("Member succeeded added");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to create user. Exception: {ex.Message}");
+            }
         }
 
         public async Task UpdateMemberAsync()
