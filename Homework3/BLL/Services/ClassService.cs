@@ -122,6 +122,8 @@ namespace BLL.Services
                 }
                 
                 fitClass.Attendees.Add(member);
+
+                await Update(classId, fitClass);
             }
             catch (Exception ex)
             {
