@@ -58,7 +58,35 @@ namespace UI.ConsoleManagers
 
         public async Task CreateClassAsync()
         {
-            // Implementation for creating a new class
+            try
+            {
+                Console.WriteLine("Enter name");
+                var name = Console.ReadLine();
+
+                if (name is null)
+                {
+                    throw new Exception("Name is null");
+                }
+                
+                Console.WriteLine("Enter type");
+                var type = Console.ReadLine();
+                
+                if (type is null)
+                {
+                    throw new Exception("Type is null");
+                }
+
+                await Service.ScheduleClass(new FitnessClass()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = name,
+                    Type = type
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to create class. Exception: {ex.Message}");
+            }
         }
 
         public async Task UpdateClassAsync()
