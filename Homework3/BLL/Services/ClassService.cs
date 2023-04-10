@@ -11,13 +11,11 @@ namespace BLL.Services
     public class ClassService : GenericService<FitnessClass>, IClassService
     {
         private readonly ITrainerService _trainerService;
-        private readonly IMemberService _memberService;
 
-        public ClassService(IRepository<FitnessClass> repository, ITrainerService trainerService, IMemberService memberService)
+        public ClassService(IRepository<FitnessClass> repository, ITrainerService trainerService)
             : base(repository)
         {
             _trainerService = trainerService;
-            _memberService = memberService;
         }
 
         public async Task<FitnessClass> ScheduleClass(FitnessClass fitnessClass)
@@ -103,32 +101,35 @@ namespace BLL.Services
         }
 
         public async Task AddAttendeeToClass(Guid classId, Guid memberId)
+        public async Task AssignTrainerToClass(Guid trainerId, Guid classId)
         {
             try
             {
+                var trainer = await _trainerService.GetById(trainerId);
                 var fitClass = await GetById(classId);
-                var member = await _memberService.GetById(memberId);
+                
+                if (trainer is null)
+                {
+                    throw new Exception("Trainer is null");
+                }
                 
                 if (fitClass is null)
                 {
                     throw new Exception("Class is null");
                 }
-                
-                if (member is null)
+            
+                if (fitClass.Trainer == trainer)
                 {
-                    throw new Exception("Member is null");
+                    throw new Exception("Trainer already assigned to class");
                 }
-
-                if (fitClass.Attendees.Contains(member))
-                {
-                    throw new Exception("Member already added in class");
-                }
-                
-                fitClass.Attendees.Add(member);
+            
+                fitClass.Trainer = trainer;
+            
+                await Update(classId, fitClass);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to add attendee class {classId}. Exception: {ex.Message}");
+                throw new Exception($"Failed to check assign trainer {trainerId} to class {classId}. Exception: {ex.Message}");
             }
         }
     }
