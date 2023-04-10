@@ -118,7 +118,7 @@ namespace UI.ConsoleManagers
                 Console.WriteLine("Enter id of trainer, which you need to update");
                 var trainer = await Service.GetById(Guid.Parse(Console.ReadLine()));
                 
-                Console.WriteLine("Eneter what you need to change (1 - Lastname, 2 - Firstname)");
+                Console.WriteLine("Enter what you need to change (1 - Lastname, 2 - Firstname)");
                 var answerUpdate = Console.ReadLine();
                 
                 if (answerUpdate == "1")
@@ -127,7 +127,7 @@ namespace UI.ConsoleManagers
                     var newLastName = Console.ReadLine();
                     trainer.LastName = newLastName;
                 }
-                else if (answerUpdate == "1")
+                else if (answerUpdate == "2")
                 {
                     Console.WriteLine("Enter new firstname");
                     var newFirstName = Console.ReadLine();

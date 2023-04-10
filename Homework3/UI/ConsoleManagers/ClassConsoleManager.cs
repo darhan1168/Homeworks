@@ -116,7 +116,7 @@ namespace UI.ConsoleManagers
                 Console.WriteLine("Enter id of class, which you need to update");
                 var fitClass = await Service.GetById(Guid.Parse(Console.ReadLine()));
             
-                Console.WriteLine("Eneter what yoy need to change (1 - Name, 2 - Type)");
+                Console.WriteLine("Eneter what you need to change (1 - Name, 2 - Type)");
                 var answerUpdate = Console.ReadLine();
 
                 if (answerUpdate == "1")
@@ -125,7 +125,7 @@ namespace UI.ConsoleManagers
                     var newName = Console.ReadLine();
                     fitClass.Name = newName;
                 }
-                else if (answerUpdate == "1")
+                else if (answerUpdate == "2")
                 {
                     Console.WriteLine("Enter new type");
                     var newType = Console.ReadLine();

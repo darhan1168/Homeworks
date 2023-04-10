@@ -174,7 +174,7 @@ namespace UI.ConsoleManagers
                 Console.WriteLine("Enter id of member, which you need to update");
                 var member = await Service.GetById(Guid.Parse(Console.ReadLine()));
             
-                Console.WriteLine("Eneter what yoy need to change (1 - Lastname, 2 - Firstname)");
+                Console.WriteLine("Enter what yoy need to change (1 - Lastname, 2 - Firstname)");
                 var answerUpdate = Console.ReadLine();
 
                 if (answerUpdate == "1")
@@ -183,7 +183,7 @@ namespace UI.ConsoleManagers
                     var newLastName = Console.ReadLine();
                     member.LastName = newLastName;
                 }
-                else if (answerUpdate == "1")
+                else if (answerUpdate == "2")
                 {
                     Console.WriteLine("Enter new firstname");
                     var newFirstName = Console.ReadLine();

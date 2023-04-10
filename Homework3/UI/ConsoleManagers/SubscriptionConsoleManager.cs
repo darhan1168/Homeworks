@@ -138,7 +138,7 @@ namespace UI.ConsoleManagers
                 Console.WriteLine("Enter id of trainer, which you need to update");
                 var subscription = await Service.GetById(Guid.Parse(Console.ReadLine()));
                 
-                Console.WriteLine("Eneter what you need to change (1 - Member, ...)");
+                Console.WriteLine("Enter what you need to change (1 - Member, ...)");
                 var answerUpdate = Console.ReadLine();
                 
                 if (answerUpdate == "1")
