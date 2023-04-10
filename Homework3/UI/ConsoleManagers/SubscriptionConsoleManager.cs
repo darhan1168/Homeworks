@@ -57,7 +57,27 @@ namespace UI.ConsoleManagers
 
         public async Task DisplayAllSubscriptionsAsync()
         {
-            // Implementation for displaying all subscriptions
+            try
+            {
+                var subscriptions = await Service.GetAll();
+
+                if (subscriptions is null)
+                {
+                    throw new Exception("Subscriptions are not found");
+                }
+                
+                int index = 1;
+
+                foreach (var subscription in subscriptions)
+                {
+                    Console.WriteLine($"{index} - Member: {subscription.Member.FirstName}, Type: {subscription.Type}, Start: {subscription.StartDate}, End: {subscription.EndDate}");
+                    index++;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to display all users. Exception: {ex.Message}");
+            }
         }
 
         public async Task CreateSubscriptionAsync()
