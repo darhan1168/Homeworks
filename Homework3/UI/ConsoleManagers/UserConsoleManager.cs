@@ -86,11 +86,13 @@ namespace UI.ConsoleManagers
                 
                 Console.WriteLine("Enter your Username");
                 var username = Console.ReadLine();
-                var userEqUsername = users.Where(u => u.Username == username).ToList();
 
-                if (userEqUsername.Count > 0)
+                foreach (var user in users)
                 {
-                    Console.WriteLine("Username already added");
+                    if (user.Username == username)
+                    {
+                        throw new Exception($"This Username: {username} already added");
+                    }
                 }
                 
                 Console.WriteLine("Enter your Password or 1 - generate random");
