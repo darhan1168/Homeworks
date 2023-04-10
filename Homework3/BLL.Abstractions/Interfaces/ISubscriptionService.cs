@@ -13,9 +13,7 @@ namespace BLL.Abstractions.Interfaces
     public interface ISubscriptionService : IGenericService<Subscription>
     {
         Task<Subscription> CreateSubscription(Subscription subscription);
-        
-        Task<List<Subscription>> GetSubscriptionsByMember(Guid memberId);
-        
+
         Task<List<Subscription>> GetSubscriptionsByType(string subscriptionType);
         
         Task RenewSubscription(Guid subscriptionId);
