@@ -55,7 +55,27 @@ namespace UI.ConsoleManagers
         
         public async Task DisplayAllMembersAsync()
         {
-            // Implementation for displaying all members
+            try
+            {
+                var members = await Service.GetAll();
+
+                if (members is null)
+                {
+                    throw new Exception("Members are not found");
+                }
+                
+                int index = 1;
+
+                foreach (var member in members)
+                {
+                    Console.WriteLine($"{index} - Firstname: {member.FirstName}, Lastname: {member.LastName}, Email: {member.Email}, Subscription type: {member.SubscriptionType}, Phone number: {member.PhoneNumber}, DateOfBirth: {member.DateOfBirth}, SubscriptionStartDate: {member.SubscriptionStartDate}, SubscriptionEndDate: {member.SubscriptionEndDate}, Id: {member.Id},");
+                    index++;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to display all members. Exception: {ex.Message}");
+            }
         }
 
         public async Task AddMemberAsync()
