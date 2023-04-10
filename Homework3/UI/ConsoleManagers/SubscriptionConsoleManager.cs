@@ -9,8 +9,11 @@ namespace UI.ConsoleManagers
 {
     public class SubscriptionConsoleManager : ConsoleManager<ISubscriptionService, Subscription>, IConsoleManager
     {
-        public SubscriptionConsoleManager(ISubscriptionService subscriptionService) : base(subscriptionService)
+        private readonly MemberConsoleManager _memberConsoleManager;
+        
+        public SubscriptionConsoleManager(ISubscriptionService subscriptionService, MemberConsoleManager memberConsoleManager) : base(subscriptionService)
         {
+            _memberConsoleManager = memberConsoleManager;
         }
 
         public override async Task PerformOperationsAsync()
