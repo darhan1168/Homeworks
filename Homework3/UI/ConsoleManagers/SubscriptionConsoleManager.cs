@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BLL.Abstractions.Interfaces;
+using Core.Enums;
 using Core.Models;
 using UI.Interfaces;
 
@@ -61,7 +62,53 @@ namespace UI.ConsoleManagers
 
         public async Task CreateSubscriptionAsync()
         {
-            // Implementation for creating a new subscription
+            try
+            {
+                Console.WriteLine("Enter id of member");
+                Guid memberId = new Guid(Console.ReadLine());
+                var member = await _memberConsoleManager.GetByIdAsync(memberId);
+
+                Console.WriteLine("Enter type (1 - Monthly, 2 - Quarterly, 3 - Annual,)");
+                var answerType = Console.ReadLine();
+                SubscriptionType type;
+                DateTime endDay;
+
+                if (answerType == "1")
+                {
+                    endDay = DateTime.Now.AddMonths(1);
+                    type = SubscriptionType.Monthly;
+                }
+                else if (answerType == "2")
+                {
+                    endDay = DateTime.Now.AddMonths(3);
+                    type = SubscriptionType.Quarterly;
+                }
+                else if (answerType == "3")
+                {
+                    endDay = DateTime.Now.AddYears(1);
+                    type = SubscriptionType.Annual;
+                }
+                else
+                {
+                    throw new Exception("Incorrect answer about type");
+                }
+
+                DateTime startDay = DateTime.Now;
+
+                await Service.CreateSubscription(new Subscription()
+                {
+                    Member = member,
+                    Type = type,
+                    StartDate = startDay,
+                    EndDate = endDay
+                });
+                
+                Console.WriteLine($"Subscription added");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to create subscription. Exception: {ex.Message}");
+            }
         }
 
         public async Task UpdateSubscriptionAsync()
