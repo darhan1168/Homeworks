@@ -204,7 +204,18 @@ namespace UI.ConsoleManagers
 
         public async Task DeleteMemberAsync()
         {
-            // Implementation for deleting a member
+            try
+            {
+                Console.WriteLine("Enter your member id");
+                Guid memberId = new Guid(Console.ReadLine());
+                
+                await Service.Delete(memberId);
+                Console.WriteLine("Trainer was deleted");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to delete member. Exception: {ex.Message}");
+            }
         }
     }
 }

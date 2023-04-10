@@ -68,7 +68,18 @@ namespace UI.ConsoleManagers
 
         public async Task DeleteClassAsync()
         {
-            // Implementation for deleting a class
+            try
+            {
+                Console.WriteLine("Enter your class id");
+                Guid classId = new Guid(Console.ReadLine());
+                
+                await Service.Delete(classId);
+                Console.WriteLine("Class was deleted");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to delete class. Exception: {ex.Message}");
+            }
         }
     }
 }

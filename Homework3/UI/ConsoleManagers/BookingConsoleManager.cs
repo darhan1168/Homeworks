@@ -109,7 +109,18 @@ namespace UI.ConsoleManagers
 
         public async Task DeleteBookingAsync()
         {
-            // Implementation for deleting a booking
+            try
+            {
+                Console.WriteLine("Enter your booking id");
+                Guid bookingId = new Guid(Console.ReadLine());
+                
+                await Service.Delete(bookingId);
+                Console.WriteLine("Booking was deleted");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to delete booking. Exception: {ex.Message}");
+            }
         }
     }
 }

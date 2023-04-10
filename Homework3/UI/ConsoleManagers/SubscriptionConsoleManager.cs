@@ -138,7 +138,18 @@ namespace UI.ConsoleManagers
 
         public async Task DeleteSubscriptionAsync()
         {
-            // Implementation for deleting a subscription
+            try
+            {
+                Console.WriteLine("Enter your subscription id");
+                Guid subscriptionId = new Guid(Console.ReadLine());
+                
+                await Service.Delete(subscriptionId);
+                Console.WriteLine("Subscription was deleted");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to delete subscription. Exception: {ex.Message}");
+            }
         }
     }
 }
