@@ -108,7 +108,39 @@ namespace UI.ConsoleManagers
 
         public async Task UpdateBookingAsync()
         {
-            // Implementation for updating a booking
+            try
+            {
+                Console.WriteLine("Enter id of booking, which you need to update");
+                var booking = await Service.GetById(Guid.Parse(Console.ReadLine()));
+                
+                Console.WriteLine("Enter what you need to change (1 - Member, 2 - Class)");
+                var answerUpdate = Console.ReadLine();
+
+                if (answerUpdate == "1")
+                {
+                    Console.WriteLine("Enter id of member");
+                    Guid newMemberId = Guid.Parse(Console.ReadLine());
+                    var newMember = await _memberConsoleManager.GetByIdAsync(newMemberId);
+                    booking.Member = newMember;
+                }
+                else if (answerUpdate == "2")
+                {
+                    Console.WriteLine("Enter id of class");
+                    Guid newClassId = Guid.Parse(Console.ReadLine());
+                    var newClass = await _classConsoleManager.GetByIdAsync(newClassId);
+                    booking.Class = newClass;
+                }
+                else
+                {
+                    throw new Exception("Incorrect answer");
+                }
+
+                await Service.Update(booking.Id, booking);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to update booking. Exception: {ex.Message}");
+            }
         }
 
         public async Task DeleteBookingAsync()
