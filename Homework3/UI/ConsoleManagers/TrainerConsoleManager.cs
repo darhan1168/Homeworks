@@ -113,7 +113,37 @@ namespace UI.ConsoleManagers
 
         public async Task UpdateTrainerAsync()
         {
-            // Implementation for updating a trainer
+            try
+            {
+                Console.WriteLine("Enter id of trainer, which you need to update");
+                var trainer = await Service.GetById(new Guid(Console.ReadLine()));
+                
+                Console.WriteLine("Eneter what you need to change (1 - Lastname, 2 - Firstname)");
+                var answerUpdate = Console.ReadLine();
+                
+                if (answerUpdate == "1")
+                {
+                    Console.WriteLine("Enter new lastname");
+                    var newLastName = Console.ReadLine();
+                    trainer.LastName = newLastName;
+                }
+                else if (answerUpdate == "1")
+                {
+                    Console.WriteLine("Enter new firstname");
+                    var newFirstName = Console.ReadLine();
+                    trainer.FirstName = newFirstName;
+                }
+                else
+                {
+                    throw new Exception("Incorrect answer");
+                }
+
+                await Service.Update(trainer.Id, trainer);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to update trainer. Exception: {ex.Message}");
+            }
         }
 
         public async Task DeleteTrainerAsync()
