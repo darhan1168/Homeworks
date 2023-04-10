@@ -63,6 +63,11 @@ namespace UI.ConsoleManagers
                 {
                     throw new Exception("Users are not found");
                 }
+
+                if (users.Count == 0)
+                {
+                    throw new Exception("Users are not added yet");
+                }
                 
                 int index = 1;
 

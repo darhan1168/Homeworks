@@ -59,6 +59,11 @@ namespace UI.ConsoleManagers
             {
                 var members = await Service.GetAll();
 
+                if (members.Count == 0)
+                {
+                    throw new Exception("Members are not added yet");
+                }
+                
                 if (members is null)
                 {
                     throw new Exception("Members are not found");

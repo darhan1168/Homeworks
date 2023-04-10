@@ -56,6 +56,11 @@ namespace UI.ConsoleManagers
             try
             {
                 var classes = await Service.GetAll();
+                
+                if (classes.Count == 0)
+                {
+                    throw new Exception("Classes are not added yet");
+                }
 
                 if (classes is null)
                 {

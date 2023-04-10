@@ -56,11 +56,18 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                var trainers = await Service.GetAll();
+                
+                if (trainers.Count == 0)
+                {
+                    throw new Exception("Trainers are not added yet");
+                }
+                
                 int index = 1;
 
                 foreach (var trainer in await Service.GetAll())
                 {
-                    Console.WriteLine($"{index} - {trainer.FirstName}, {trainer.LastName}, {trainer.Specialization}, {trainer.Id}");
+                    Console.WriteLine($"{index} - FirstName: {trainer.FirstName}, LastName: {trainer.LastName}, Specialization: {trainer.Specialization}, Id: {trainer.Id}");
 
                     index++;
                 }

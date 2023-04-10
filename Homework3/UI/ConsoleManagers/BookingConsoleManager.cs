@@ -64,6 +64,11 @@ namespace UI.ConsoleManagers
             {
                 var bookings = await Service.GetAll();
 
+                if (bookings.Count == 0)
+                {
+                    throw new Exception("Bookings are not added yet");
+                }
+
                 if (bookings is null)
                 {
                     throw new Exception("Bookings are not found");
@@ -73,7 +78,7 @@ namespace UI.ConsoleManagers
 
                 foreach (var booking in bookings)
                 {
-                    Console.WriteLine($"{index} - Member: {booking.Member.FirstName}, {booking.Member.LastName}, Class: {booking.Class.Name}, Date: {booking.Date}, Id: {booking.Id}");
+                    Console.WriteLine($"{index} - Member: {booking.Member?.FirstName}, {booking.Member?.LastName}, Class: {booking.Class?.Name}, Date: {booking.Date}, Id: {booking.Id}");
                     index++;
                 }
             }

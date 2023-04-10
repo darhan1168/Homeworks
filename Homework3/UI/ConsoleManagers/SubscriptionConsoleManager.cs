@@ -61,6 +61,11 @@ namespace UI.ConsoleManagers
             {
                 var subscriptions = await Service.GetAll();
 
+                if (subscriptions.Count == 0)
+                {
+                    throw new Exception("Subscriptions are not added yet");
+                }
+                
                 if (subscriptions is null)
                 {
                     throw new Exception("Subscriptions are not found");
@@ -87,6 +92,11 @@ namespace UI.ConsoleManagers
                 Console.WriteLine("Enter id of member");
                 Guid memberId = Guid.Parse(Console.ReadLine());
                 var member = await _memberConsoleManager.GetByIdAsync(memberId);
+                
+                if (member == null)
+                {
+                    throw new Exception($"Member with id {memberId} not found");
+                }
 
                 Console.WriteLine("Enter type (1 - Monthly, 2 - Quarterly, 3 - Annual,)");
                 var answerType = Console.ReadLine();
