@@ -11,11 +11,8 @@ namespace BLL.Services
 {
     public class SubscriptionService : GenericService<Subscription>, ISubscriptionService
     {
-        private readonly IMemberService _memberService;
-        
-        public SubscriptionService(IRepository<Subscription> repository, IMemberService memberService) : base(repository)
+        public SubscriptionService(IRepository<Subscription> repository) : base(repository)
         {
-            _memberService = memberService;
         }
 
         public async Task<Subscription> CreateSubscription(Subscription subscription)
@@ -42,31 +39,6 @@ namespace BLL.Services
             catch (Exception ex)
             {
                 throw new Exception($"Failed to create subscription {subscription}. Exception: {ex.Message}");
-            }
-        }
-
-        public async Task<List<Subscription>> GetSubscriptionsByMember(Guid memberId)
-        {
-            try
-            {
-                var subscriptions = await GetAll();
-                var member = await _memberService.GetById(memberId);
-                
-                if (subscriptions is null)
-                {
-                    throw new Exception("Subscriptions are null");
-                }
-                
-                if (member is null)
-                {
-                    throw new Exception("Member is null");
-                }
-
-                return subscriptions.Where(s => s.Member == member).ToList();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Failed to get subscriptions by member {memberId}. Exception: {ex.Message}");
             }
         }
 
