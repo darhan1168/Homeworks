@@ -53,7 +53,27 @@ namespace UI.ConsoleManagers
         
         public async Task DisplayAllClassesAsync()
         {
-            // Implementation for displaying all classes
+            try
+            {
+                var classes = await Service.GetAll();
+
+                if (classes is null)
+                {
+                    throw new Exception("Classes are not found");
+                }
+                
+                int index = 1;
+
+                foreach (var fitClass in classes)
+                {
+                    Console.WriteLine($"{index} - Firstname: {fitClass.Name}, Lastname: {fitClass.Type}, Id: {fitClass.Id}");
+                    index++;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to display all classes. Exception: {ex.Message}");
+            }
         }
 
         public async Task CreateClassAsync()
