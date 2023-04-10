@@ -60,8 +60,27 @@ namespace UI.ConsoleManagers
 
         public async Task DisplayAllBookingsAsync()
         {
-            Service.Add(new Booking());
-            // Implementation for displaying all bookings
+            try
+            {
+                var bookings = await Service.GetAll();
+
+                if (bookings is null)
+                {
+                    throw new Exception("Bookings are not found");
+                }
+                
+                int index = 1;
+
+                foreach (var booking in bookings)
+                {
+                    Console.WriteLine($"{index} - Member: {booking.Member.FirstName}, {booking.Member.LastName}, Class: {booking.Class.Name}, Date: {booking.Date}, Id: {booking.Id}");
+                    index++;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to display all booking. Exception: {ex.Message}");
+            }
         }
 
         public async Task CreateBookingAsync()
