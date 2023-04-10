@@ -114,7 +114,7 @@ namespace UI.ConsoleManagers
             try
             {
                 Console.WriteLine("Enter id of class, which you need to update");
-                var fitClass = await Service.GetById(new Guid(Console.ReadLine()));
+                var fitClass = await Service.GetById(Guid.Parse(Console.ReadLine()));
             
                 Console.WriteLine("Eneter what yoy need to change (1 - Name, 2 - Type)");
                 var answerUpdate = Console.ReadLine();

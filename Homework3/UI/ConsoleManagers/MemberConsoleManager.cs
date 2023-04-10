@@ -172,7 +172,7 @@ namespace UI.ConsoleManagers
             try
             {
                 Console.WriteLine("Enter id of member, which you need to update");
-                var member = await Service.GetById(new Guid(Console.ReadLine()));
+                var member = await Service.GetById(Guid.Parse(Console.ReadLine()));
             
                 Console.WriteLine("Eneter what yoy need to change (1 - Lastname, 2 - Firstname)");
                 var answerUpdate = Console.ReadLine();
