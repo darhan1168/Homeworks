@@ -85,7 +85,7 @@ namespace UI.ConsoleManagers
             try
             {
                 Console.WriteLine("Enter id of member");
-                Guid memberId = new Guid(Console.ReadLine());
+                Guid memberId = Guid.Parse(Console.ReadLine());
                 var member = await _memberConsoleManager.GetByIdAsync(memberId);
 
                 Console.WriteLine("Enter type (1 - Monthly, 2 - Quarterly, 3 - Annual,)");
@@ -136,7 +136,7 @@ namespace UI.ConsoleManagers
             try
             {
                 Console.WriteLine("Enter id of trainer, which you need to update");
-                var subscription = await Service.GetById(new Guid(Console.ReadLine()));
+                var subscription = await Service.GetById(Guid.Parse(Console.ReadLine()));
                 
                 Console.WriteLine("Eneter what you need to change (1 - Member, ...)");
                 var answerUpdate = Console.ReadLine();
@@ -144,7 +144,7 @@ namespace UI.ConsoleManagers
                 if (answerUpdate == "1")
                 {
                     Console.WriteLine("Enter new member id");
-                    Guid memberId = new Guid(Console.ReadLine());
+                    Guid memberId = Guid.Parse(Console.ReadLine());
                     var newMember = await _memberConsoleManager.GetByIdAsync(memberId);
                     subscription.Member = newMember;
                 }
@@ -166,7 +166,7 @@ namespace UI.ConsoleManagers
             try
             {
                 Console.WriteLine("Enter your subscription id");
-                Guid subscriptionId = new Guid(Console.ReadLine());
+                Guid subscriptionId = Guid.Parse(Console.ReadLine());
                 
                 await Service.Delete(subscriptionId);
                 Console.WriteLine("Subscription was deleted");

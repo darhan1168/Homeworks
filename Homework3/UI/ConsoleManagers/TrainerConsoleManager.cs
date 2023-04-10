@@ -116,7 +116,7 @@ namespace UI.ConsoleManagers
             try
             {
                 Console.WriteLine("Enter id of trainer, which you need to update");
-                var trainer = await Service.GetById(new Guid(Console.ReadLine()));
+                var trainer = await Service.GetById(Guid.Parse(Console.ReadLine()));
                 
                 Console.WriteLine("Eneter what you need to change (1 - Lastname, 2 - Firstname)");
                 var answerUpdate = Console.ReadLine();
@@ -151,7 +151,7 @@ namespace UI.ConsoleManagers
             try
             {
                 Console.WriteLine("Enter your trainer id");
-                Guid trainerId = new Guid(Console.ReadLine());
+                Guid trainerId = Guid.Parse(Console.ReadLine());
                 
                 await Service.Delete(trainerId);
                 Console.WriteLine("Trainer was deleted");

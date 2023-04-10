@@ -68,27 +68,12 @@ namespace UI.ConsoleManagers
         {
             try
             {
-                var members = await _memberConsoleManager.GetAllAsync();
-                var classes = await _classConsoleManager.GetAllAsync();
-                
                 Console.WriteLine("Enter id of member");
-                Guid memberId = new Guid(Console.ReadLine());
-                var member = await _memberConsoleManager.GetByIdAsync(memberId);
+                Guid memberId = Guid.Parse(Console.ReadLine());
 
-                if (!members.Contains(member) || member is null)
-                {
-                    throw new Exception("This member is not found");
-                }
-                
                 Console.WriteLine("Enter id of class");
-                Guid classId = new Guid(Console.ReadLine());
-                var fitClass = await _classConsoleManager.GetByIdAsync(classId);
+                Guid classId = Guid.Parse(Console.ReadLine());
 
-                if (!classes.Contains(fitClass) || fitClass is null)
-                {
-                    throw new Exception("This class is not found");
-                }
-                
                 var booking = await Service.BookClass(memberId, classId);
                 await CreateAsync(booking);
 
@@ -112,7 +97,7 @@ namespace UI.ConsoleManagers
             try
             {
                 Console.WriteLine("Enter your booking id");
-                Guid bookingId = new Guid(Console.ReadLine());
+                Guid bookingId = Guid.Parse(Console.ReadLine());
                 
                 await Service.Delete(bookingId);
                 Console.WriteLine("Booking was deleted");

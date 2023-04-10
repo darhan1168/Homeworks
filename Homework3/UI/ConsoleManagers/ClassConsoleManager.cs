@@ -149,7 +149,7 @@ namespace UI.ConsoleManagers
             try
             {
                 Console.WriteLine("Enter your class id");
-                Guid classId = new Guid(Console.ReadLine());
+                Guid classId = Guid.Parse(Console.ReadLine());
                 
                 await Service.Delete(classId);
                 Console.WriteLine("Class was deleted");

@@ -207,7 +207,7 @@ namespace UI.ConsoleManagers
             try
             {
                 Console.WriteLine("Enter your member id");
-                Guid memberId = new Guid(Console.ReadLine());
+                Guid memberId = Guid.Parse(Console.ReadLine());
                 
                 await Service.Delete(memberId);
                 Console.WriteLine("Trainer was deleted");
