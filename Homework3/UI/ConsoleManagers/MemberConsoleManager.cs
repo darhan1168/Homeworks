@@ -163,13 +163,43 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to create user. Exception: {ex.Message}");
+                throw new Exception($"Failed to create member. Exception: {ex.Message}");
             }
         }
 
         public async Task UpdateMemberAsync()
         {
-            // Implementation for updating a member
+            try
+            {
+                Console.WriteLine("Enter id of member, which you need to update");
+                var member = await Service.GetById(new Guid(Console.ReadLine()));
+            
+                Console.WriteLine("Eneter what yoy need to change (1 - Lastname, 2 - Firstname)");
+                var answerUpdate = Console.ReadLine();
+
+                if (answerUpdate == "1")
+                {
+                    Console.WriteLine("Enter new lastname");
+                    var newLastName = Console.ReadLine();
+                    member.LastName = newLastName;
+                }
+                else if (answerUpdate == "1")
+                {
+                    Console.WriteLine("Enter new firstname");
+                    var newFirstName = Console.ReadLine();
+                    member.FirstName = newFirstName;
+                }
+                else
+                {
+                    throw new Exception("Incorrect answer");
+                }
+
+                await Service.Update(member.Id, member);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to update member. Exception: {ex.Message}");
+            }
         }
 
         public async Task DeleteMemberAsync()
