@@ -39,6 +39,7 @@ namespace BLL.Services
             
                 var booking = new Booking()
                 {
+                    Id = Guid.NewGuid(),
                     Member = member,
                     Class = fitClass,
                     Date = DateTime.Now,
