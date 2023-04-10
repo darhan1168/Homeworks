@@ -90,7 +90,7 @@ namespace UI.ConsoleManagers
 
                 if (userEqUsername.Count > 0)
                 {
-                    throw new Exception("Username already added");
+                    Console.WriteLine("Username already added");
                 }
                 
                 Console.WriteLine("Enter your Password or 1 - generate random");
@@ -139,7 +139,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to create user. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to create user. Exception: {ex.Message}");
             }
         }
 
@@ -173,7 +173,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to update user. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to update user. Exception: {ex.Message}");
             }
         }
 
@@ -194,7 +194,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to delete user. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to delete user. Exception: {ex.Message}");
             }
         }
         

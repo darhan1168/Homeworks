@@ -74,7 +74,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to display all members. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to display all members. Exception: {ex.Message}");
             }
         }
 
@@ -163,7 +163,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to create member. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to create member. Exception: {ex.Message}");
             }
         }
 
@@ -198,7 +198,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to update member. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to update member. Exception: {ex.Message}");
             }
         }
 
@@ -214,7 +214,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to delete member. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to delete member. Exception: {ex.Message}");
             }
         }
     }

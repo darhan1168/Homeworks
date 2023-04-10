@@ -76,7 +76,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to display all users. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to display all users. Exception: {ex.Message}");
             }
         }
 
@@ -127,7 +127,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to create subscription. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to create subscription. Exception: {ex.Message}");
             }
         }
 
@@ -157,7 +157,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to update subscription. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to update subscription. Exception: {ex.Message}");
             }
         }
 
@@ -173,7 +173,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to delete subscription. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to delete subscription. Exception: {ex.Message}");
             }
         }
     }

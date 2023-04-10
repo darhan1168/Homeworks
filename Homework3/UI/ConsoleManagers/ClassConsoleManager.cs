@@ -72,7 +72,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to display all classes. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to display all classes. Exception: {ex.Message}");
             }
         }
 
@@ -105,7 +105,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to create class. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to create class. Exception: {ex.Message}");
             }
         }
 
@@ -140,7 +140,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to update class. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to update class. Exception: {ex.Message}");
             }
         }
 
@@ -156,7 +156,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to delete class. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to delete class. Exception: {ex.Message}");
             }
         }
     }

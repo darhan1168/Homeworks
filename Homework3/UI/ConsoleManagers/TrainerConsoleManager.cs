@@ -54,13 +54,20 @@ namespace UI.ConsoleManagers
 
         public async Task DisplayAllTrainersAsync()
         {
-            int index = 1;
-
-            foreach (var trainer in await Service.GetAll())
+            try
             {
-                Console.WriteLine($"{index} - {trainer.FirstName}, {trainer.LastName}, {trainer.Specialization}, {trainer.Id}");
+                int index = 1;
 
-                index++;
+                foreach (var trainer in await Service.GetAll())
+                {
+                    Console.WriteLine($"{index} - {trainer.FirstName}, {trainer.LastName}, {trainer.Specialization}, {trainer.Id}");
+
+                    index++;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to display all trainers. Exception: {ex.Message}");
             }
         }
 
@@ -107,7 +114,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to create Trainer. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to create Trainer. Exception: {ex.Message}");
             }
         }
 
@@ -142,7 +149,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to update trainer. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to update trainer. Exception: {ex.Message}");
             }
         }
 
@@ -158,7 +165,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to delete trainer. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to delete trainer. Exception: {ex.Message}");
             }
         }
 

@@ -79,7 +79,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to display all booking. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to display all booking. Exception: {ex.Message}");
             }
         }
 
@@ -102,7 +102,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to create booking. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to create booking. Exception: {ex.Message}");
             }
         }
 
@@ -139,7 +139,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to update booking. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to update booking. Exception: {ex.Message}");
             }
         }
 
@@ -155,7 +155,7 @@ namespace UI.ConsoleManagers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to delete booking. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to delete booking. Exception: {ex.Message}");
             }
         }
     }
