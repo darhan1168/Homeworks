@@ -24,5 +24,7 @@ namespace BLL.Abstractions.Interfaces
         Task<bool> CheckMemberAttendance(Guid memberId, DateTime date);
         
         Task RecordMemberAttendance(Guid memberId, DateTime date);
+
+        Task<List<Subscription>> GetSubscriptionsByMember(Guid memberId);
     }
 }
