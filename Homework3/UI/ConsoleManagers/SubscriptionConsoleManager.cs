@@ -133,7 +133,32 @@ namespace UI.ConsoleManagers
 
         public async Task UpdateSubscriptionAsync()
         {
-            // Implementation for updating a subscription
+            try
+            {
+                Console.WriteLine("Enter id of trainer, which you need to update");
+                var subscription = await Service.GetById(new Guid(Console.ReadLine()));
+                
+                Console.WriteLine("Eneter what you need to change (1 - Member, ...)");
+                var answerUpdate = Console.ReadLine();
+                
+                if (answerUpdate == "1")
+                {
+                    Console.WriteLine("Enter new member id");
+                    Guid memberId = new Guid(Console.ReadLine());
+                    var newMember = await _memberConsoleManager.GetByIdAsync(memberId);
+                    subscription.Member = newMember;
+                }
+                else
+                {
+                    throw new Exception("Incorrect answer");
+                }
+
+                await Service.Update(subscription.Id, subscription);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to update subscription. Exception: {ex.Message}");
+            }
         }
 
         public async Task DeleteSubscriptionAsync()
