@@ -28,5 +28,47 @@ namespace UI.ConsoleManagers
             _trainerConsoleManager = new TrainerConsoleManager(trainerService);
             _userConsoleManager = new UserConsoleManager(userService);
         }
+
+        public async Task PerformOperationsAsync()
+        {
+            Dictionary<string, Func<Task>> actions = new Dictionary<string, Func<Task>>
+            {
+                { "1", _bookingConsoleManager.PerformOperationsAsync },
+                { "2", _classConsoleManager.PerformOperationsAsync },
+                { "3", _memberConsoleManager.PerformOperationsAsync },
+                { "4", _subscriptionConsoleManager.PerformOperationsAsync },
+                { "5", _trainerConsoleManager.PerformOperationsAsync },
+                { "6", _userConsoleManager.PerformOperationsAsync },
+            };
+
+            while (true)
+            {
+                Console.WriteLine("\nUser operations:");
+                Console.WriteLine("1. Do some operations with booking");
+                Console.WriteLine("2. Do some operations with class");
+                Console.WriteLine("3. Do some operations with member");
+                Console.WriteLine("4. Do some operations with subscription");
+                Console.WriteLine("5. Do some operations with trainer");
+                Console.WriteLine("6. Do some operations with user");
+                Console.WriteLine("7. Exit");
+
+                Console.Write("Enter the operation number: ");
+                string input = Console.ReadLine();
+
+                if (input == "7")
+                {
+                    break;
+                }
+
+                if (actions.ContainsKey(input))
+                {
+                    await actions[input]();
+                }
+                else
+                {
+                    Console.WriteLine("Invalid operation number.");
+                }
+            }
+        }
     }
 }
