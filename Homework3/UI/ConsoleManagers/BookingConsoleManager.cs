@@ -8,7 +8,7 @@ using UI.Interfaces;
 
 namespace UI.ConsoleManagers
 {
-    public class BookingConsoleManager : ConsoleManager<IBookingService, Booking>, IConsoleManager
+    public class BookingConsoleManager : ConsoleManager<IBookingService, Booking>, IConsoleManager<Booking>
     {
         private readonly ClassConsoleManager _classConsoleManager;
         private readonly MemberConsoleManager _memberConsoleManager;

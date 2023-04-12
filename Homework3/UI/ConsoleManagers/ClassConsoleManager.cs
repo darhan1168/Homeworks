@@ -7,7 +7,7 @@ using UI.Interfaces;
 
 namespace UI.ConsoleManagers
 {
-    public class ClassConsoleManager : ConsoleManager<IClassService, FitnessClass>, IConsoleManager
+    public class ClassConsoleManager : ConsoleManager<IClassService, FitnessClass>, IConsoleManager<FitnessClass>
     {
         public ClassConsoleManager(IClassService classService) : base(classService)
         {

@@ -8,7 +8,7 @@ using UI.Interfaces;
 
 namespace UI.ConsoleManagers
 {
-    public class SubscriptionConsoleManager : ConsoleManager<ISubscriptionService, Subscription>, IConsoleManager
+    public class SubscriptionConsoleManager : ConsoleManager<ISubscriptionService, Subscription>, IConsoleManager<Subscription>
     {
         private readonly MemberConsoleManager _memberConsoleManager;
         

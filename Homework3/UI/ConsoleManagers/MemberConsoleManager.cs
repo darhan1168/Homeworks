@@ -9,7 +9,7 @@ using UI.Interfaces;
 
 namespace UI.ConsoleManagers
 {
-    public class MemberConsoleManager : ConsoleManager<IMemberService, Member>, IConsoleManager
+    public class MemberConsoleManager : ConsoleManager<IMemberService, Member>, IConsoleManager<Member>
     {
         public MemberConsoleManager(IMemberService memberService) : base(memberService)
         {

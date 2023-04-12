@@ -8,7 +8,7 @@ using UI.Interfaces;
 
 namespace UI.ConsoleManagers
 {
-    public class TrainerConsoleManager : ConsoleManager<ITrainerService, Trainer>, IConsoleManager
+    public class TrainerConsoleManager : ConsoleManager<ITrainerService, Trainer>, IConsoleManager<Trainer>
     {
         public TrainerConsoleManager(ITrainerService trainerService) : base(trainerService)
         {

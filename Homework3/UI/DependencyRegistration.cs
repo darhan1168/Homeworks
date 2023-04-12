@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using DAL.Abstractions.Interfaces;
 using UI.ConsoleManagers;
+using UI.Interfaces;
 
 namespace UI
 {
@@ -20,11 +21,11 @@ namespace UI
             services.AddScoped<TrainerConsoleManager>();
             services.AddScoped<UserConsoleManager>();
                         
-            foreach (Type type in typeof(IRepository<>).Assembly.GetTypes()
+            foreach (Type type in typeof(IConsoleManager<>).Assembly.GetTypes()
                          .Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces()
-                             .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRepository<>))))
+                             .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IConsoleManager<>))))
             {
-                Type interfaceType = type.GetInterfaces().First(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IRepository<>));
+                Type interfaceType = type.GetInterfaces().First(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IConsoleManager<>));
                 services.AddScoped(interfaceType, type);
             }
 
