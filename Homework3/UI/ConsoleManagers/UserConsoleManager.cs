@@ -161,22 +161,64 @@ namespace UI.ConsoleManagers
                 var password = Console.ReadLine();
 
                 var user = await Service.Authenticate(username, password);
-
-                Console.WriteLine("Enter new password or 1 - generate");
-                var answerPassword = Console.ReadLine();
-                string newPassword;
                 
-                if (answerPassword == "1")
+                Console.WriteLine("What you want to change (1 - User name, 2 - Password, 3 - Role)");
+                var answer = Console.ReadLine();
+                
+                switch (answer)
                 {
-                    newPassword = GeneratePassword();
-                    Console.WriteLine($"Your new password: {newPassword}");
-                }
-                else
-                {
-                    newPassword = answerPassword;
-                }
+                    case "1":
+                        Console.WriteLine("Enter new username");
+                        var newUsername = Console.ReadLine();
+                        user.Username = newUsername;
+                        
+                        await UpdateAsync(user.Id, user);
+                        break;
+                    case "2":
+                        Console.WriteLine("Enter new password or 1 - generate");
+                        var answerPassword = Console.ReadLine();
+                        string newPassword;
+                
+                        if (answerPassword == "1")
+                        {
+                            newPassword = GeneratePassword();
+                            Console.WriteLine($"Your new password: {newPassword}");
+                        }
+                        else
+                        {
+                            newPassword = answerPassword;
+                        }
+                        
+                        await Service.UpdatePassword(user.Id, newPassword);
+                        break;
+                    case "3":
+                        Console.WriteLine("Enter your new Role (1 - Admin, 2 - Trainer, 3 - Member)");
+                        var newRole = Console.ReadLine();
+                        UserRole role;
 
-                await Service.UpdatePassword(user.Id, newPassword);
+                        if (newRole == "1")
+                        {
+                            role = UserRole.Admin;
+                        }
+                        else if (newRole == "2")
+                        {
+                            role = UserRole.Trainer;
+                        }
+                        else if (newRole == "3")
+                        {
+                            role = UserRole.Member;
+                        }
+                        else
+                        {
+                            throw new Exception("Incorrect answer about role");
+                        }
+
+                        user.Role = role;
+                        await UpdateAsync(user.Id, user);
+                        break;
+                    default:
+                        throw new Exception("Incorrect answer");
+                }
             }
             catch (Exception ex)
             {
