@@ -185,7 +185,6 @@ namespace UI.ConsoleManagers
 
                 ShowAllMember(members);
                 
-                
                 Console.WriteLine("Enter the serial number of member");
                 int index = Int32.Parse(Console.ReadLine());
                 var member = members[index - 1];
