@@ -238,7 +238,7 @@ namespace UI.ConsoleManagers
 
                 var user = await Service.Authenticate(username, password);
 
-                await Service.Delete(user.Id);
+                await DeleteAsync(user.Id);
                 Console.WriteLine("User was deleted");
             }
             catch (Exception ex)
