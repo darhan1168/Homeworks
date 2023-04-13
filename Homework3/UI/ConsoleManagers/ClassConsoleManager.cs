@@ -71,7 +71,7 @@ namespace UI.ConsoleManagers
 
                 foreach (var fitClass in classes)
                 {
-                    Console.WriteLine($"{index} - Firstname: {fitClass.Name}, Lastname: {fitClass.Type}, Id: {fitClass.Id}");
+                    Console.WriteLine($"{index} - Firstname: {fitClass.Name}, Lastname: {fitClass.Type}, Date: {fitClass.Date}");
                     index++;
                 }
             }
@@ -105,7 +105,8 @@ namespace UI.ConsoleManagers
                 {
                     Id = Guid.NewGuid(),
                     Name = name,
-                    Type = type
+                    Type = type,
+                    Date = DateTime.Now
                 });
             }
             catch (Exception ex)
@@ -118,10 +119,15 @@ namespace UI.ConsoleManagers
         {
             try
             {
-                Console.WriteLine("Enter id of class, which you need to update");
-                var fitClass = await Service.GetById(Guid.Parse(Console.ReadLine()));
+                var classes = await Service.GetAll();
+
+                await DisplayAllClassesAsync();
+                
+                Console.WriteLine("Enter the serial number of class");
+                int index = Int32.Parse(Console.ReadLine());
+                var fitClass = classes[index - 1];
             
-                Console.WriteLine("Eneter what you need to change (1 - Name, 2 - Type)");
+                Console.WriteLine("Enter what you need to change (1 - Name, 2 - Type, 3 - Date)");
                 var answerUpdate = Console.ReadLine();
 
                 if (answerUpdate == "1")
@@ -136,12 +142,16 @@ namespace UI.ConsoleManagers
                     var newType = Console.ReadLine();
                     fitClass.Type = newType;
                 }
+                else if (answerUpdate == "3")
+                {
+                    fitClass.Date = DateTime.Now;
+                }
                 else
                 {
                     throw new Exception("Incorrect answer");
                 }
 
-                await Service.Update(fitClass.Id, fitClass);
+                await UpdateAsync(fitClass.Id, fitClass);
             }
             catch (Exception ex)
             {
@@ -153,10 +163,15 @@ namespace UI.ConsoleManagers
         {
             try
             {
-                Console.WriteLine("Enter your class id");
-                Guid classId = Guid.Parse(Console.ReadLine());
+                var classes = await Service.GetAll();
+
+                await DisplayAllClassesAsync();
                 
-                await Service.Delete(classId);
+                Console.WriteLine("Enter the serial number of class");
+                int index = Int32.Parse(Console.ReadLine());
+                var fitClass = classes[index - 1];
+                
+                await DeleteAsync(fitClass.Id);
                 Console.WriteLine("Class was deleted");
             }
             catch (Exception ex)
