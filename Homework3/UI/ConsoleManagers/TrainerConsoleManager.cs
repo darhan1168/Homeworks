@@ -67,7 +67,7 @@ namespace UI.ConsoleManagers
 
                 foreach (var trainer in await Service.GetAll())
                 {
-                    Console.WriteLine($"{index} - FirstName: {trainer.FirstName}, LastName: {trainer.LastName}, Specialization: {trainer.Specialization}, Id: {trainer.Id}");
+                    Console.WriteLine($"{index} - FirstName: {trainer.FirstName}, LastName: {trainer.LastName}, Specialization: {trainer.Specialization}");
 
                     index++;
                 }
@@ -129,9 +129,19 @@ namespace UI.ConsoleManagers
         {
             try
             {
-                Console.WriteLine("Enter id of trainer, which you need to update");
-                var trainer = await Service.GetById(Guid.Parse(Console.ReadLine()));
+                var trainers = await Service.GetAll();
                 
+                if (trainers is null)
+                {
+                    throw new Exception("Trainers are not added yet");
+                }
+
+                ShowAllTrainer(trainers);
+                
+                Console.WriteLine("Enter the serial number of trainer");
+                int indexTrainer = Int32.Parse(Console.ReadLine());
+                var trainer = trainers[indexTrainer - 1];
+
                 Console.WriteLine("Enter what you need to change (1 - Lastname, 2 - Firstname)");
                 var answerUpdate = Console.ReadLine();
                 
@@ -164,10 +174,20 @@ namespace UI.ConsoleManagers
         {
             try
             {
-                Console.WriteLine("Enter your trainer id");
-                Guid trainerId = Guid.Parse(Console.ReadLine());
+                var trainers = await Service.GetAll();
                 
-                await Service.Delete(trainerId);
+                if (trainers is null)
+                {
+                    throw new Exception("Trainers are not added yet");
+                }
+
+                ShowAllTrainer(trainers);
+                
+                Console.WriteLine("Enter the serial number of trainer");
+                int indexTrainer = Int32.Parse(Console.ReadLine());
+                var trainer = trainers[indexTrainer - 1];
+
+                await Service.Delete(trainer.Id);
                 Console.WriteLine("Trainer was deleted");
             }
             catch (Exception ex)
@@ -218,6 +238,17 @@ namespace UI.ConsoleManagers
             }
 
             return availableDates;
+        }
+
+        public void ShowAllTrainer(List<Trainer> trainers)
+        {
+            int index = 1;
+                
+            foreach (var trainer in trainers)
+            {
+                Console.WriteLine($"{index} - {trainer.FirstName}, {trainer.LastName}, {trainer.Specialization}");
+                index++;
+            }
         }
     }
 }
