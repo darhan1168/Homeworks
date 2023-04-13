@@ -57,6 +57,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 var users = await Service.GetAll();
 
                 if (users is null)
@@ -87,6 +89,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 var users = await Service.GetAll();
                 
                 Console.WriteLine("Enter your Username");
@@ -154,6 +158,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 Console.WriteLine("Enter your username");
                 var username = Console.ReadLine();
                 
@@ -230,6 +236,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 Console.WriteLine("Enter your username");
                 var username = Console.ReadLine();
                 

@@ -56,6 +56,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 var trainers = await Service.GetAll();
                 
                 if (trainers.Count == 0)
@@ -82,6 +84,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 Console.WriteLine("Enter firstname of trainer");
                 var firstName = Console.ReadLine();
 
@@ -129,6 +133,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 var trainers = await Service.GetAll();
                 
                 if (trainers is null)
@@ -174,6 +180,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 var trainers = await Service.GetAll();
                 
                 if (trainers is null)

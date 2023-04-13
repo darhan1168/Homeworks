@@ -60,6 +60,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 var subscriptions = await Service.GetAll();
 
                 if (subscriptions is null)
@@ -85,6 +87,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 var members = await _memberConsoleManager.GetAllAsync();
 
                 await _memberConsoleManager.DisplayAllMembersAsync();
@@ -141,6 +145,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 var subscriptions = await Service.GetAll();
 
                 await DisplayAllSubscriptionsAsync();
@@ -212,6 +218,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 var subscriptions = await Service.GetAll();
 
                 await DisplayAllSubscriptionsAsync();

@@ -69,6 +69,8 @@ namespace UI.ConsoleManagers
                     throw new Exception("Bookings are not added yet");
                 }
 
+                Console.Clear();
+                
                 if (bookings is null)
                 {
                     throw new Exception("Bookings are not found");
@@ -97,6 +99,8 @@ namespace UI.ConsoleManagers
 
                 Console.WriteLine("Enter id of class");
                 Guid classId = Guid.Parse(Console.ReadLine());
+                Console.Clear();
+                
 
                 var booking = await Service.BookClass(memberId, classId);
                 await CreateAsync(booking);
@@ -146,6 +150,8 @@ namespace UI.ConsoleManagers
             {
                 Console.WriteLine($"Failed to update booking. Exception: {ex.Message}");
             }
+            //Console.Clear();
+            
         }
 
         public async Task DeleteBookingAsync()
@@ -154,6 +160,7 @@ namespace UI.ConsoleManagers
             {
                 Console.WriteLine("Enter your booking id");
                 Guid bookingId = Guid.Parse(Console.ReadLine());
+                Console.Clear();
                 
                 await Service.Delete(bookingId);
                 Console.WriteLine("Booking was deleted");

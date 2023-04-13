@@ -55,6 +55,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 var classes = await Service.GetAll();
                 
                 if (classes.Count == 0)
@@ -85,6 +87,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 Console.WriteLine("Enter name");
                 var name = Console.ReadLine();
 
@@ -119,6 +123,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 var classes = await Service.GetAll();
 
                 await DisplayAllClassesAsync();
@@ -163,6 +169,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 var classes = await Service.GetAll();
 
                 await DisplayAllClassesAsync();

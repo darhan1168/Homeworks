@@ -57,6 +57,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 var members = await Service.GetAll();
 
                 if (members.Count == 0)
@@ -87,6 +89,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 Console.WriteLine("Enter firstname");
                 var firstName = Console.ReadLine();
 
@@ -176,6 +180,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 var members = await Service.GetAll();
                 
                 if (members is null)
@@ -267,6 +273,8 @@ namespace UI.ConsoleManagers
         {
             try
             {
+                Console.Clear();
+                
                 var members = await Service.GetAll();
                 
                 if (members is null)
