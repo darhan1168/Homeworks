@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BLL.Abstractions.Interfaces;
 using Core.Enums;
@@ -61,11 +62,6 @@ namespace UI.ConsoleManagers
             {
                 var subscriptions = await Service.GetAll();
 
-                if (subscriptions.Count == 0)
-                {
-                    throw new Exception("Subscriptions are not added yet");
-                }
-                
                 if (subscriptions is null)
                 {
                     throw new Exception("Subscriptions are not found");
@@ -75,7 +71,7 @@ namespace UI.ConsoleManagers
 
                 foreach (var subscription in subscriptions)
                 {
-                    Console.WriteLine($"{index} - Member: {subscription.Member.FirstName}, Type: {subscription.Type}, Start: {subscription.StartDate}, End: {subscription.EndDate}");
+                    Console.WriteLine($"{index} - Member: {subscription.Member.FirstName}, {subscription.Member.LastName}, Type: {subscription.Type}, Start: {subscription.StartDate}, End: {subscription.EndDate}");
                     index++;
                 }
             }
@@ -89,14 +85,13 @@ namespace UI.ConsoleManagers
         {
             try
             {
-                Console.WriteLine("Enter id of member");
-                Guid memberId = Guid.Parse(Console.ReadLine());
-                var member = await _memberConsoleManager.GetByIdAsync(memberId);
+                var members = await _memberConsoleManager.GetAllAsync();
+
+                await _memberConsoleManager.DisplayAllMembersAsync();
                 
-                if (member == null)
-                {
-                    throw new Exception($"Member with id {memberId} not found");
-                }
+                Console.WriteLine("Enter the serial number of member");
+                int index = Int32.Parse(Console.ReadLine());
+                var member = members.ElementAt(index - 1);
 
                 Console.WriteLine("Enter type (1 - Monthly, 2 - Quarterly, 3 - Annual,)");
                 var answerType = Console.ReadLine();
@@ -127,6 +122,7 @@ namespace UI.ConsoleManagers
 
                 await Service.CreateSubscription(new Subscription()
                 {
+                    Id = Guid.NewGuid(),
                     Member = member,
                     Type = type,
                     StartDate = startDay,
@@ -145,25 +141,66 @@ namespace UI.ConsoleManagers
         {
             try
             {
-                Console.WriteLine("Enter id of trainer, which you need to update");
-                var subscription = await Service.GetById(Guid.Parse(Console.ReadLine()));
+                var subscriptions = await Service.GetAll();
+
+                await DisplayAllSubscriptionsAsync();
                 
-                Console.WriteLine("Enter what you need to change (1 - Member, ...)");
+                Console.WriteLine("Enter the serial number of subscriptions");
+                int index = Int32.Parse(Console.ReadLine());
+                var subscription = subscriptions[index - 1];
+                
+                Console.WriteLine("Enter what you need to change (1 - Member, 2 - Type)");
                 var answerUpdate = Console.ReadLine();
                 
                 if (answerUpdate == "1")
                 {
-                    Console.WriteLine("Enter new member id");
-                    Guid memberId = Guid.Parse(Console.ReadLine());
-                    var newMember = await _memberConsoleManager.GetByIdAsync(memberId);
-                    subscription.Member = newMember;
+                    var members = await _memberConsoleManager.GetAllAsync();
+
+                    await _memberConsoleManager.DisplayAllMembersAsync();
+                
+                    Console.WriteLine("Enter the serial number of member");
+                    int indexMember = Int32.Parse(Console.ReadLine());
+                    var member = members.ElementAt(indexMember - 1);
+                    subscription.Member = member;
+                }
+                else if (answerUpdate == "2")
+                {
+                    Console.WriteLine("Enter type (1 - Monthly, 2 - Quarterly, 3 - Annual,)");
+                    var answerType = Console.ReadLine();
+                    SubscriptionType type;
+                    DateTime endDay;
+
+                    if (answerType == "1")
+                    {
+                        endDay = DateTime.Now.AddMonths(1);
+                        type = SubscriptionType.Monthly;
+                    }
+                    else if (answerType == "2")
+                    {
+                        endDay = DateTime.Now.AddMonths(3);
+                        type = SubscriptionType.Quarterly;
+                    }
+                    else if (answerType == "3")
+                    {
+                        endDay = DateTime.Now.AddYears(1);
+                        type = SubscriptionType.Annual;
+                    }
+                    else
+                    {
+                        throw new Exception("Incorrect answer about type");
+                    }
+
+                    DateTime startDay = DateTime.Now;
+                    subscription.Type = type;
+                    subscription.StartDate = startDay;
+                    subscription.EndDate = endDay;
                 }
                 else
                 {
                     throw new Exception("Incorrect answer");
                 }
 
-                await Service.Update(subscription.Id, subscription);
+                await UpdateAsync(subscription.Id, subscription);
             }
             catch (Exception ex)
             {
@@ -175,10 +212,15 @@ namespace UI.ConsoleManagers
         {
             try
             {
-                Console.WriteLine("Enter your subscription id");
-                Guid subscriptionId = Guid.Parse(Console.ReadLine());
+                var subscriptions = await Service.GetAll();
+
+                await DisplayAllSubscriptionsAsync();
                 
-                await Service.Delete(subscriptionId);
+                Console.WriteLine("Enter the serial number of subscriptions");
+                int index = Int32.Parse(Console.ReadLine());
+                var subscription = subscriptions[index - 1];
+                
+                await DeleteAsync(subscription.Id);
                 Console.WriteLine("Subscription was deleted");
             }
             catch (Exception ex)
