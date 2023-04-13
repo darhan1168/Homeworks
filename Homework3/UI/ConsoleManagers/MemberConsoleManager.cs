@@ -73,7 +73,7 @@ namespace UI.ConsoleManagers
 
                 foreach (var member in members)
                 {
-                    Console.WriteLine($"{index} - Firstname: {member.FirstName}, Lastname: {member.LastName}, Email: {member.Email}, Subscription type: {member.SubscriptionType}, Phone number: {member.PhoneNumber}, DateOfBirth: {member.DateOfBirth}, SubscriptionStartDate: {member.SubscriptionStartDate}, SubscriptionEndDate: {member.SubscriptionEndDate}, Id: {member.Id},");
+                    Console.WriteLine($"{index} - Firstname: {member.FirstName}, Lastname: {member.LastName}, Email: {member.Email}, Subscription type: {member.SubscriptionType}, Phone number: {member.PhoneNumber}, DateOfBirth: {member.DateOfBirth}, SubscriptionStartDate: {member.SubscriptionStartDate}, SubscriptionEndDate: {member.SubscriptionEndDate}");
                     index++;
                 }
             }
@@ -176,30 +176,87 @@ namespace UI.ConsoleManagers
         {
             try
             {
-                Console.WriteLine("Enter id of member, which you need to update");
-                var member = await Service.GetById(Guid.Parse(Console.ReadLine()));
+                var members = await Service.GetAll();
+                
+                if (members is null)
+                {
+                    throw new Exception("Members are not added yet");
+                }
+
+                ShowAllMember(members);
+                
+                
+                Console.WriteLine("Enter the serial number of member");
+                int index = Int32.Parse(Console.ReadLine());
+                var member = members[index - 1];
             
-                Console.WriteLine("Enter what yoy need to change (1 - Lastname, 2 - Firstname)");
+                Console.WriteLine("Enter what yoy need to change (1 - Firstname, 2 - Lastname, 3 - DateOfBirth, 4 - Email, 5 - Phone number, 6 - SubscriptionType)");
                 var answerUpdate = Console.ReadLine();
 
-                if (answerUpdate == "1")
+                switch (answerUpdate)
                 {
-                    Console.WriteLine("Enter new lastname");
-                    var newLastName = Console.ReadLine();
-                    member.LastName = newLastName;
-                }
-                else if (answerUpdate == "2")
-                {
-                    Console.WriteLine("Enter new firstname");
-                    var newFirstName = Console.ReadLine();
-                    member.FirstName = newFirstName;
-                }
-                else
-                {
-                    throw new Exception("Incorrect answer");
+                    case "1":
+                        Console.WriteLine("Enter new firstname");
+                        var newFirstName = Console.ReadLine();
+                        member.FirstName = newFirstName;
+                        break;
+                    case "2":
+                        Console.WriteLine("Enter new lastname");
+                        var newLastName = Console.ReadLine();
+                        member.LastName = newLastName;
+                        break;
+                    case "3":
+                        Console.WriteLine("Enter new DateOfBirth");
+                        string format = "dd.MM.yyyy";
+                        DateTime newDateBrth = DateTime.ParseExact(Console.ReadLine(), format, null);
+                        member.DateOfBirth = newDateBrth;
+                        break;
+                    case "4":
+                        Console.WriteLine("Enter new Email");
+                        var newEmail = Console.ReadLine();
+                        member.Email = newEmail;
+                        break;
+                    case "5":
+                        Console.WriteLine("Enter new Phone number");
+                        var newPhoneNum = Console.ReadLine();
+                        member.PhoneNumber = newPhoneNum;
+                        break;
+                    case "6":
+                        Console.WriteLine("Enter new type (1 - Monthly, 2 - Quarterly, 3 - Annual,)");
+                        var answerType = Console.ReadLine();
+                        SubscriptionType type;
+                        DateTime subscriptionStartDate = DateTime.Now;
+                        DateTime subscriptionEndDate;
+                
+                        if (answerType == "1")
+                        {
+                            subscriptionEndDate = DateTime.Now.AddMonths(1);
+                            type = SubscriptionType.Monthly;
+                        }
+                        else if (answerType == "2")
+                        {
+                            subscriptionEndDate = DateTime.Now.AddMonths(3);
+                            type = SubscriptionType.Quarterly;
+                        }
+                        else if (answerType == "3")
+                        {
+                            subscriptionEndDate = DateTime.Now.AddYears(1);
+                            type = SubscriptionType.Annual;
+                        }
+                        else
+                        {
+                            throw new Exception("Incorrect answer about type");
+                        }
+                        
+                        member.SubscriptionStartDate = subscriptionStartDate;
+                        member.SubscriptionEndDate = subscriptionEndDate;
+                        member.SubscriptionType = type;
+                        break;
+                    default:
+                        throw new Exception("Incorrect answer");
                 }
 
-                await Service.Update(member.Id, member);
+                await UpdateAsync(member.Id, member);
             }
             catch (Exception ex)
             {
@@ -211,15 +268,36 @@ namespace UI.ConsoleManagers
         {
             try
             {
-                Console.WriteLine("Enter your member id");
-                Guid memberId = Guid.Parse(Console.ReadLine());
+                var members = await Service.GetAll();
                 
-                await Service.Delete(memberId);
-                Console.WriteLine("Trainer was deleted");
+                if (members is null)
+                {
+                    throw new Exception("Members are not added yet");
+                }
+
+                ShowAllMember(members);
+                
+                Console.WriteLine("Enter the serial number of member");
+                int index = Int32.Parse(Console.ReadLine());
+                var member = members[index - 1];
+
+                await Service.Delete(member.Id);
+                Console.WriteLine("Member was deleted");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Failed to delete member. Exception: {ex.Message}");
+            }
+        }
+        
+        public void ShowAllMember(List<Member> members)
+        {
+            int index = 1;
+                
+            foreach (var member in members)
+            {
+                Console.WriteLine($"{index} - {member.FirstName}, {member.LastName}, Email: {member.Email}, Subscription type: {member.SubscriptionType}, Phone number: {member.PhoneNumber}, DateOfBirth: {member.DateOfBirth}, SubscriptionStartDate: {member.SubscriptionStartDate}, SubscriptionEndDate: {member.SubscriptionEndDate}");
+                index++;
             }
         }
     }
