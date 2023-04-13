@@ -187,7 +187,7 @@ namespace UI.ConsoleManagers
                 int indexTrainer = Int32.Parse(Console.ReadLine());
                 var trainer = trainers[indexTrainer - 1];
 
-                await Service.Delete(trainer.Id);
+                await DeleteAsync(trainer.Id);
                 Console.WriteLine("Trainer was deleted");
             }
             catch (Exception ex)

@@ -280,7 +280,7 @@ namespace UI.ConsoleManagers
                 int index = Int32.Parse(Console.ReadLine());
                 var member = members[index - 1];
 
-                await Service.Delete(member.Id);
+                await DeleteAsync(member.Id);
                 Console.WriteLine("Member was deleted");
             }
             catch (Exception ex)
