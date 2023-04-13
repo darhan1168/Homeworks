@@ -162,7 +162,7 @@ namespace UI.ConsoleManagers
                     throw new Exception("Incorrect answer");
                 }
 
-                await Service.Update(trainer.Id, trainer);
+                await UpdateAsync(trainer.Id, trainer);
             }
             catch (Exception ex)
             {
