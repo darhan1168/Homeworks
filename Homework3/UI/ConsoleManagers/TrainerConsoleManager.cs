@@ -136,7 +136,7 @@ namespace UI.ConsoleManagers
                     throw new Exception("Trainers are not added yet");
                 }
 
-                ShowAllTrainer(trainers);
+                await DisplayAllTrainersAsync();
                 
                 Console.WriteLine("Enter the serial number of trainer");
                 int indexTrainer = Int32.Parse(Console.ReadLine());
@@ -181,7 +181,7 @@ namespace UI.ConsoleManagers
                     throw new Exception("Trainers are not added yet");
                 }
 
-                ShowAllTrainer(trainers);
+                await DisplayAllTrainersAsync();
                 
                 Console.WriteLine("Enter the serial number of trainer");
                 int indexTrainer = Int32.Parse(Console.ReadLine());
@@ -238,17 +238,6 @@ namespace UI.ConsoleManagers
             }
 
             return availableDates;
-        }
-
-        public void ShowAllTrainer(List<Trainer> trainers)
-        {
-            int index = 1;
-                
-            foreach (var trainer in trainers)
-            {
-                Console.WriteLine($"{index} - {trainer.FirstName}, {trainer.LastName}, {trainer.Specialization}");
-                index++;
-            }
         }
     }
 }

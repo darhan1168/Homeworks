@@ -183,7 +183,7 @@ namespace UI.ConsoleManagers
                     throw new Exception("Members are not added yet");
                 }
 
-                ShowAllMember(members);
+                await DisplayAllMembersAsync();
                 
                 Console.WriteLine("Enter the serial number of member");
                 int index = Int32.Parse(Console.ReadLine());
@@ -274,7 +274,7 @@ namespace UI.ConsoleManagers
                     throw new Exception("Members are not added yet");
                 }
 
-                ShowAllMember(members);
+                await DisplayAllMembersAsync();
                 
                 Console.WriteLine("Enter the serial number of member");
                 int index = Int32.Parse(Console.ReadLine());
@@ -286,17 +286,6 @@ namespace UI.ConsoleManagers
             catch (Exception ex)
             {
                 Console.WriteLine($"Failed to delete member. Exception: {ex.Message}");
-            }
-        }
-        
-        public void ShowAllMember(List<Member> members)
-        {
-            int index = 1;
-                
-            foreach (var member in members)
-            {
-                Console.WriteLine($"{index} - {member.FirstName}, {member.LastName}, Email: {member.Email}, Subscription type: {member.SubscriptionType}, Phone number: {member.PhoneNumber}, DateOfBirth: {member.DateOfBirth}, SubscriptionStartDate: {member.SubscriptionStartDate}, SubscriptionEndDate: {member.SubscriptionEndDate}");
-                index++;
             }
         }
     }
