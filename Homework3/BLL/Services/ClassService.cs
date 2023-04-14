@@ -105,7 +105,7 @@ namespace BLL.Services
             try
             {
                 var fitClass = await GetById(classId);
-
+            
                 if (fitClass is null)
                 {
                     throw new Exception("Class is null");
@@ -115,13 +115,6 @@ namespace BLL.Services
                 {
                     throw new Exception("Member is null");
                 }
-            
-                if (fitClass.Attendees.Contains(member))
-                {
-                    throw new Exception("Member already added in class");
-                }
-                
-                fitClass.Attendees.Add(member);
 
                 await Update(classId, fitClass);
             }

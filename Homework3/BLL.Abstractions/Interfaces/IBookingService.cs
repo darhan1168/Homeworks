@@ -12,6 +12,7 @@ namespace BLL.Abstractions.Interfaces
     // ConfirmBooking: Confirms the specified booking by setting its status to confirmed, making it an active booking.
     public interface IBookingService : IGenericService<Booking>
     {
+        Task<Booking> AddBooking(Booking booking);
         Task<Booking> BookClass(Guid memberId, Guid classId);
         
         Task<List<Booking>> GetBookingsByMember(Guid memberId);

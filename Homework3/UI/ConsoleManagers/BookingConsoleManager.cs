@@ -62,14 +62,9 @@ namespace UI.ConsoleManagers
         {
             try
             {
-                var bookings = await Service.GetAll();
-
-                if (bookings.Count == 0)
-                {
-                    throw new Exception("Bookings are not added yet");
-                }
-
                 Console.Clear();
+                
+                var bookings = await GetAllAsync();
                 
                 if (bookings is null)
                 {
@@ -77,7 +72,7 @@ namespace UI.ConsoleManagers
                 }
                 
                 int index = 1;
-
+            
                 foreach (var booking in bookings)
                 {
                     Console.WriteLine($"{index} - Member: {booking.Member?.FirstName}, {booking.Member?.LastName}, Class: {booking.Class?.Name}, Date: {booking.Date}, Id: {booking.Id}");
@@ -94,75 +89,121 @@ namespace UI.ConsoleManagers
         {
             try
             {
-                Console.WriteLine("Enter id of member");
-                Guid memberId = Guid.Parse(Console.ReadLine());
-
-                Console.WriteLine("Enter id of class");
-                Guid classId = Guid.Parse(Console.ReadLine());
                 Console.Clear();
                 
+                var members = await _memberConsoleManager.GetAllAsync();
+                var classes = await _classConsoleManager.GetAllAsync();
 
-                var booking = await Service.BookClass(memberId, classId);
-                await CreateAsync(booking);
-
-                await Service.ConfirmBooking(booking.Id);
+                await _memberConsoleManager.DisplayAllMembersAsync();
                 
+                Console.WriteLine("Enter the serial number of member");
+                int indexMember = Int32.Parse(Console.ReadLine());
+                var member = members.ElementAt(indexMember - 1);
+
+                await _classConsoleManager.DisplayAllClassesAsync();
+                
+                Console.WriteLine("Enter the serial number of class");
+                int indexClass = Int32.Parse(Console.ReadLine());
+                var fitClass = classes.ElementAt(indexClass - 1);
+
+                await Service.BookClass(member.Id, fitClass.Id);
+
                 Console.WriteLine("Booking added and confirmed");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Failed to create booking. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to create booking in console manager. Exception: {ex.Message}");
             }
         }
 
         public async Task UpdateBookingAsync()
         {
-            try
-            {
-                Console.WriteLine("Enter id of booking, which you need to update");
-                var booking = await Service.GetById(Guid.Parse(Console.ReadLine()));
-                
-                Console.WriteLine("Enter what you need to change (1 - Member, 2 - Class)");
-                var answerUpdate = Console.ReadLine();
-
-                if (answerUpdate == "1")
-                {
-                    Console.WriteLine("Enter id of member");
-                    Guid newMemberId = Guid.Parse(Console.ReadLine());
-                    var newMember = await _memberConsoleManager.GetByIdAsync(newMemberId);
-                    booking.Member = newMember;
-                }
-                else if (answerUpdate == "2")
-                {
-                    Console.WriteLine("Enter id of class");
-                    Guid newClassId = Guid.Parse(Console.ReadLine());
-                    var newClass = await _classConsoleManager.GetByIdAsync(newClassId);
-                    booking.Class = newClass;
-                }
-                else
-                {
-                    throw new Exception("Incorrect answer");
-                }
-
-                await Service.Update(booking.Id, booking);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Failed to update booking. Exception: {ex.Message}");
-            }
-            //Console.Clear();
+             try
+             {
+                 Console.Clear();
             
+                 var bookings = await Service.GetAll();
+            
+                 if (bookings is null)
+                 {
+                     throw new Exception("Bookings are not added yet");
+                 }
+
+                 await DisplayAllBookingsAsync();
+                 
+                 Console.WriteLine("Enter the serial number of booking");
+                 int indexBooking = Int32.Parse(Console.ReadLine());
+                 var booking = bookings[indexBooking - 1];
+                 
+                 Console.WriteLine("Enter what you need to change (1 - Member, 2 - Class)");
+                 var answerUpdate = Console.ReadLine();
+            
+                 if (answerUpdate == "1")
+                 {
+                     var members = await _memberConsoleManager.GetAllAsync();
+                         
+                     if (members is null)
+                     {
+                         throw new Exception("Members are not added yet");
+                     }
+
+                     await _memberConsoleManager.DisplayAllMembersAsync();
+                             
+                     Console.WriteLine("Enter the serial number of members");
+                     int indexMember = Int32.Parse(Console.ReadLine());
+                             
+                     var newMember = await _memberConsoleManager.GetByIdAsync(members.ElementAt(indexMember - 1).Id);
+                     booking.Member = newMember;
+                 }
+                 else if (answerUpdate == "2")
+                 {
+                     var classes = await _classConsoleManager.GetAllAsync();
+                     
+                     if (classes is null)
+                     {
+                         throw new Exception("Сlasses are not added yet");
+                     }
+
+                     await _classConsoleManager.DisplayAllClassesAsync();
+                             
+                     Console.WriteLine("Enter the serial number of classes");
+                     int indexClass = Int32.Parse(Console.ReadLine());
+                             
+                     var newClass = await _classConsoleManager.GetByIdAsync(classes.ElementAt(indexClass - 1).Id);
+                     booking.Class = newClass;
+                 }
+                 else
+                 {
+                     throw new Exception("Incorrect answer");
+                 }
+            
+                 await UpdateAsync(booking.Id, booking);
+             }
+             catch (Exception ex)
+             {
+                 Console.WriteLine($"Failed to update booking. Exception: {ex.Message}");
+             }
         }
 
         public async Task DeleteBookingAsync()
         {
             try
             {
-                Console.WriteLine("Enter your booking id");
-                Guid bookingId = Guid.Parse(Console.ReadLine());
                 Console.Clear();
                 
-                await Service.Delete(bookingId);
+                var bookings = await GetAllAsync();
+            
+                if (bookings is null)
+                {
+                    throw new Exception("Bookings are not added yet");
+                }
+
+                await DisplayAllBookingsAsync();
+                
+                Console.WriteLine("Enter the serial number of booking");
+                int index = Int32.Parse(Console.ReadLine());
+                
+                await Service.Delete(bookings.ElementAt(index - 1).Id);
                 Console.WriteLine("Booking was deleted");
             }
             catch (Exception ex)

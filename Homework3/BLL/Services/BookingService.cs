@@ -20,6 +20,25 @@ namespace BLL.Services
             _memberService = memberService;
         }
 
+        public async Task<Booking> AddBooking(Booking booking)
+        {
+            try
+            {
+                await Add(booking);
+
+                if (booking is null)
+                {
+                    throw new Exception("Trainer is null");
+                }
+                
+                return booking;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to add trainer {booking}. Exception: {ex.Message}");
+            }
+        }
+        
         public async Task<Booking> BookClass(Guid memberId, Guid classId)
         {
             try
@@ -42,8 +61,7 @@ namespace BLL.Services
                     Id = Guid.NewGuid(),
                     Member = member,
                     Class = fitClass,
-                    Date = DateTime.Now,
-                    IsConfirmed = false
+                    Date = DateTime.Now
                 };
             
                 await Add(booking);
@@ -52,7 +70,7 @@ namespace BLL.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to add booking. Exception: {ex.Message}");
+                throw new Exception($"Failed to add booking in service. Exception: {ex.Message}");
             }
         }
 

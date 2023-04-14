@@ -75,13 +75,28 @@ namespace UI.ConsoleManagers
 
                 foreach (var user in users)
                 {
+                    if (user is null)
+                    {
+                        throw new Exception("A user is null");
+                    }
+            
+                    if (string.IsNullOrWhiteSpace(user.Role.ToString()))
+                    {
+                        throw new Exception("A user's role is empty or whitespace");
+                    }
+            
+                    if (string.IsNullOrWhiteSpace(user.Username))
+                    {
+                        throw new Exception("A user's username is empty or whitespace");
+                    }
+                    
                     Console.WriteLine($"{index} - Role: {user.Role}, Username: {user.Username}");
                     index++;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to display all users. Exception: {ex.Message}");
+                Console.WriteLine($"Failed to display all users. Exception: {ex.Message}");
             }
         }
 

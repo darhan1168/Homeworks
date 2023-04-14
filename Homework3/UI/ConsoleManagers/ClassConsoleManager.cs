@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BLL.Abstractions.Interfaces;
 using Core.Models;
@@ -9,8 +10,14 @@ namespace UI.ConsoleManagers
 {
     public class ClassConsoleManager : ConsoleManager<IClassService, FitnessClass>, IConsoleManager<FitnessClass>
     {
-        public ClassConsoleManager(IClassService classService) : base(classService)
+        private readonly TrainerConsoleManager _trainerConsoleManager;
+        private readonly MemberConsoleManager _memberConsoleManager;
+        
+        public ClassConsoleManager(IClassService classService, TrainerConsoleManager trainerConsoleManager, MemberConsoleManager memberConsoleManager)
+            : base(classService)
         {
+            _trainerConsoleManager = trainerConsoleManager;
+            _memberConsoleManager = memberConsoleManager;
         }
 
         public override async Task PerformOperationsAsync()
@@ -73,7 +80,7 @@ namespace UI.ConsoleManagers
 
                 foreach (var fitClass in classes)
                 {
-                    Console.WriteLine($"{index} - Firstname: {fitClass.Name}, Lastname: {fitClass.Type}, Date: {fitClass.Date}");
+                    Console.WriteLine($"{index} - Firstname: {fitClass.Name}, Lastname: {fitClass.Type}, Date: {fitClass.Date}, Trainer {fitClass.Trainer?.FirstName}, ");
                     index++;
                 }
             }
@@ -104,13 +111,29 @@ namespace UI.ConsoleManagers
                 {
                     throw new Exception("Type is null");
                 }
+                
+                var trainers = await _trainerConsoleManager.GetAllAsync();
+                
+                if (trainers is null)
+                {
+                    throw new Exception("Trainers are not added yet");
+                }
+
+                await _trainerConsoleManager.DisplayAllTrainersAsync();
+                
+                Console.WriteLine("Enter the serial number of trainer");
+                int indexTrainer = Int32.Parse(Console.ReadLine());
+                var trainer = trainers.ElementAt(indexTrainer - 1);
 
                 await Service.ScheduleClass(new FitnessClass()
                 {
                     Id = Guid.NewGuid(),
                     Name = name,
                     Type = type,
-                    Date = DateTime.Now
+                    Trainer = trainer,
+                    Date = DateTime.Now,
+                    StartTime = DateTime.Now,
+                    EndTime = DateTime.Now.AddMonths(1)
                 });
             }
             catch (Exception ex)
