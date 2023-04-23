@@ -13,5 +13,16 @@ class Program
         
         user.MapTo(aiuser);
         Console.WriteLine(aiuser.Name);
+
+        var NewUser = new User()
+        {
+            Name = "Name",
+            Email = "Email"
+        };
+        
+        var emailValidator = new EmptyStringValidators<User>("Email");
+        bool isEmailValidator = emailValidator.Validate(NewUser);
+        
+        Console.WriteLine(isEmailValidator);
     }
 }
