@@ -6,17 +6,28 @@ public class Validator<T>
 {
     private readonly List<IValidator<T>> _validators;
 
-    public bool Validate(T model)
+    public Validator()
     {
+        _validators = new List<IValidator<T>>();
+    }
+
+    public ValidationResult Validate(T model)
+    {
+        var result = new ValidationResult();
+
         foreach (var validator in _validators)
         {
-            if (!validator.Validate(model))
+            try
             {
-                return false;
+                validator.Validate(model);
+            }
+            catch (Exception ex)
+            {
+                result.AddError(ex.Message);
             }
         }
 
-        return true;
+        return result;
     }
 
     public void AddValidator(IValidator<T> validator)
