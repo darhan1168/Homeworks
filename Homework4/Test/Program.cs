@@ -20,9 +20,23 @@ class Program
             Email = "Email"
         };
         
+        var validator = new Validator<User>();
+        validator.AddValidator(new EmptyStringValidators<User>("Email"));
+        
+        var validationResult = validator.Validate(NewUser);
         var emailValidator = new EmptyStringValidators<User>("Email");
         bool isEmailValidator = emailValidator.Validate(NewUser);
-        
-        Console.WriteLine(isEmailValidator);
+        if (isEmailValidator)
+        {
+            Console.WriteLine("Is valid");
+        }
+        else
+        {
+            Console.WriteLine("User is invalid. Errors:");
+            foreach (var error in validationResult.GetErrors())
+            {
+                Console.WriteLine(error);
+            }
+        }
     }
 }
